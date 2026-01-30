@@ -1,0 +1,12 @@
+{
+  "name": "revision-site",
+  "version": "1.0.0",
+  "description": "Site de révision pour Première spécialité NSI, Physique et Maths",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
