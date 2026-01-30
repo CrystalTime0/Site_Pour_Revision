@@ -78,6 +78,7 @@ function showCoursSection() {
     section.classList.add('active');
     
     const chaptersContainer = document.getElementById('chapters-list');
+    chaptersContainer.style.display = 'grid'; // ⚠️ FIX: Réafficher la grille
     chaptersContainer.innerHTML = '';
     
     const subject = coursData[currentSubject];
@@ -109,6 +110,7 @@ function showQuestionsSection() {
     section.classList.add('active');
     
     const chaptersContainer = document.getElementById('chapters-questions');
+    chaptersContainer.style.display = 'grid'; // ⚠️ FIX: Réafficher la grille
     chaptersContainer.innerHTML = '';
     
     const subject = coursData[currentSubject];
@@ -275,6 +277,7 @@ function showTestSection() {
     section.classList.add('active');
     
     const selectionContainer = document.getElementById('test-selection');
+    selectionContainer.style.display = 'grid'; // ⚠️ FIX: Réafficher la grille
     selectionContainer.innerHTML = '';
     
     const subject = coursData[currentSubject];
