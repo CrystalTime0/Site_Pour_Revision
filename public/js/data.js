@@ -1936,6 +1936,973 @@ def devine_nombre_ia():
             <li><strong>Binary search dans d'autres contextes :</strong> Optimisation, recherche de minimum/maximum</li>
         </ul>
     `
+            },
+            {
+                id: "nsi-7",
+                title: "Représentation des entiers relatifs",
+                description: "Nombres signés, complément à 2, débordement - Cours complet",
+                content: `
+        <h4>📚 Introduction - Le problème des nombres négatifs</h4>
+        <p>Nous avons vu comment représenter des nombres positifs en binaire : 5 = 101₂, 42 = 101010₂, etc. 
+        Mais comment un ordinateur peut-il représenter des nombres <strong>négatifs</strong> comme -5 ou -42 ?</p>
+        
+        <p><strong>Le défi :</strong> L'ordinateur ne manipule que des 0 et des 1. Il n'a pas de "signe moins" ! 
+        Il faut donc inventer une méthode pour coder à la fois le signe ET la valeur.</p>
+        
+        <p><strong>Exemple concret :</strong> Comment représenter -5 avec seulement des 0 et 1 ?</p>
+        <ul>
+            <li>❌ Écrire "-101" ? Impossible, pas de symbole "-"</li>
+            <li>✅ Solution : Utiliser un des bits pour indiquer le signe</li>
+        </ul>
+        
+        <p>Plusieurs méthodes existent, mais une seule s'est imposée : le <strong>complément à 2</strong>.</p>
+
+        <h4>🔢 1. Les trois méthodes de représentation</h4>
+        
+        <p><strong>A. Signe et valeur absolue (méthode naïve - NON utilisée)</strong></p>
+        <p>Idée simple : le bit de poids fort indique le signe (0 = positif, 1 = négatif)</p>
+        <pre>
+Sur 8 bits :
+0 0000101 = +5  (bit de signe = 0)
+1 0000101 = -5  (bit de signe = 1)
+
+┌─────────┬──────────────────────────────────┐
+│ Avantages│ Simple à comprendre              │
+├─────────┼──────────────────────────────────┤
+│ Problèmes│ • Deux représentations du zéro ! │
+│          │   +0 = 00000000                  │
+│          │   -0 = 10000000                  │
+│          │ • Addition complexe              │
+│          │ • Comparaisons difficiles        │
+└─────────┴──────────────────────────────────┘
+
+Cette méthode N'EST PAS UTILISÉE en pratique !
+        </pre>
+        
+        <p><strong>B. Complément à 1 (méthode intermédiaire - NON utilisée)</strong></p>
+        <p>Pour obtenir -n : inverser tous les bits de n</p>
+        <pre>
+Sur 8 bits :
++5 = 00000101
+-5 = 11111010 (tous les bits inversés)
+
+Problème : Toujours deux zéros !
++0 = 00000000
+-0 = 11111111
+
+Cette méthode N'EST PAS UTILISÉE non plus !
+        </pre>
+        
+        <p><strong>C. Complément à 2 (LA méthode utilisée) ✅</strong></p>
+        <p>C'est LA méthode universellement adoptée par tous les ordinateurs modernes.</p>
+        <pre>
+Principe : Pour obtenir -n
+1. Écrire n en binaire
+2. Inverser tous les bits (complément à 1)
+3. Ajouter 1
+
+┌─────────┬──────────────────────────────────┐
+│ Avantages│ • UN SEUL zéro                   │
+│          │ • Addition SIMPLE (même circuit) │
+│          │ • Comparaisons FACILES           │
+│          │ • Pas de cas spécial             │
+└─────────┴──────────────────────────────────┘
+        </pre>
+
+        <h4>🎯 2. Le complément à 2 en détail</h4>
+        
+        <p><strong>A. Méthode de conversion : +n → -n</strong></p>
+        <pre>
+Exemple 1 : Représenter -5 sur 8 bits
+
+ÉTAPE 1 : Écrire +5 en binaire sur 8 bits
+   +5 = 00000101
+
+ÉTAPE 2 : Inverser tous les bits (complément à 1)
+   Bits inversés = 11111010
+
+ÉTAPE 3 : Ajouter 1
+   11111010
+ +       1
+ ─────────
+   11111011  ← C'est -5 en complément à 2 !
+
+Vérification : 11111011 représente bien -5
+        </pre>
+        
+        <pre>
+Exemple 2 : Représenter -42 sur 8 bits
+
+ÉTAPE 1 : +42 en binaire
+   +42 = 00101010
+
+ÉTAPE 2 : Inverser les bits
+   Inversé = 11010101
+
+ÉTAPE 3 : Ajouter 1
+   11010101
+ +       1
+ ─────────
+   11010110  ← C'est -42 !
+        </pre>
+        
+        <p><strong>B. Méthode inverse : -n → +n (même algorithme !)</strong></p>
+        <pre>
+Propriété magique : L'algorithme est RÉVERSIBLE !
+
+Si on a -5 = 11111011, pour retrouver +5 :
+
+ÉTAPE 1 : On a -5 = 11111011
+ÉTAPE 2 : Inverser les bits = 00000100
+ÉTAPE 3 : Ajouter 1 = 00000101 = +5 ✓
+
+Le complément à 2 de (-n) donne n !
+        </pre>
+
+        <h4>🔍 3. Interprétation d'un nombre en complément à 2</h4>
+        
+        <p><strong>A. Le bit de poids fort = bit de signe</strong></p>
+        <pre>
+Sur n bits, le bit le plus à gauche indique le signe :
+• Si bit de poids fort = 0 → nombre POSITIF ou nul
+• Si bit de poids fort = 1 → nombre NÉGATIF
+
+Exemples sur 8 bits :
+0_______ → positif (0 à 127)
+1_______ → négatif (-128 à -1)
+
+┌───────────┬──────────────┬─────────────┐
+│ Binaire   │ Bit de signe │ Valeur      │
+├───────────┼──────────────┼─────────────┤
+│ 00000101  │      0       │ +5          │
+│ 01111111  │      0       │ +127        │
+│ 10000000  │      1       │ -128        │
+│ 11111011  │      1       │ -5          │
+│ 11111111  │      1       │ -1          │
+└───────────┴──────────────┴─────────────┘
+        </pre>
+        
+        <p><strong>B. Méthode de lecture d'un nombre négatif</strong></p>
+        <pre>
+Pour lire 11111011 :
+
+Méthode 1 : Appliquer complément à 2
+1. Inverser les bits : 00000100
+2. Ajouter 1 : 00000101 = 5
+3. C'est donc -5
+
+Méthode 2 : Formule mathématique
+Pour un nombre commençant par 1 sur 8 bits :
+Valeur = -128 + (somme des autres bits)
+
+11111011 = -128 + 64 + 32 + 16 + 8 + 2 + 1
+         = -128 + 123
+         = -5 ✓
+        </pre>
+        
+        <p><strong>C. Plage de valeurs représentables</strong></p>
+        <pre>
+Sur n bits en complément à 2 :
+De -2^(n-1) à +2^(n-1) - 1
+
+┌────────┬──────────────┬──────────────┬──────────┐
+│ Bits   │ Minimum      │ Maximum      │ Total    │
+├────────┼──────────────┼──────────────┼──────────┤
+│ 4 bits │ -8           │ +7           │ 16 val.  │
+│ 8 bits │ -128         │ +127         │ 256 val. │
+│16 bits │ -32 768      │ +32 767      │ 65 536   │
+│32 bits │ -2 147 483 648│+2 147 483 647│ 4.3 Mds  │
+└────────┴──────────────┴──────────────┴──────────┘
+
+⚠️ ASYMÉTRIE : Il y a un négatif de plus que de positifs !
+Sur 8 bits : -128 existe, mais +128 n'existe pas
+        </pre>
+
+        <h4>➕ 4. Addition en complément à 2</h4>
+        
+        <p><strong>A. Addition de deux positifs</strong></p>
+        <pre>
+Calculer 5 + 3 sur 8 bits
+
+  00000101  (+5)
++ 00000011  (+3)
+──────────
+  00001000  (+8) ✓
+
+Résultat correct : 8
+        </pre>
+        
+        <p><strong>B. Addition positif + négatif</strong></p>
+        <pre>
+Calculer 5 + (-3) = 2 sur 8 bits
+
+-3 en complément à 2 :
++3 = 00000011
+Inverser = 11111100
+Ajouter 1 = 11111101
+
+  00000101  (+5)
++ 11111101  (-3)
+──────────
+ 100000010  
+  ↑
+Retenue ignorée (débordement sur 9 bits)
+
+Résultat sur 8 bits : 00000010 = +2 ✓
+
+⚡ La retenue finale est IGNORÉE (normale en complément à 2)
+        </pre>
+        
+        <p><strong>C. Addition de deux négatifs</strong></p>
+        <pre>
+Calculer (-5) + (-3) = -8 sur 8 bits
+
+-5 = 11111011
+-3 = 11111101
+
+  11111011  (-5)
++ 11111101  (-3)
+──────────
+ 111111000
+  ↑
+Retenue ignorée
+
+Résultat : 11111000
+
+Vérification (complément à 2) :
+Inverser : 00000111
+Ajouter 1 : 00001000 = 8
+Donc 11111000 = -8 ✓
+        </pre>
+        
+        <p><strong>D. Pourquoi ça marche ? (Explication mathématique)</strong></p>
+        <pre>
+En complément à 2 sur n bits, un nombre négatif -x 
+est représenté par : 2^n - x
+
+Exemple sur 8 bits : -5 = 256 - 5 = 251₁₀ = 11111011₂
+
+Addition : 5 + (-3)
+= 5 + (256 - 3)
+= 258
+= 256 + 2
+= 2 (modulo 256, on garde les 8 bits de poids faible)
+
+C'est pour ça que la retenue est ignorée !
+        </pre>
+
+        <h4>⚠️ 5. Débordement (Overflow)</h4>
+        
+        <p><strong>A. Qu'est-ce qu'un débordement ?</strong></p>
+        <pre>
+Un débordement se produit quand le résultat ne peut PAS 
+être représenté sur le nombre de bits disponibles.
+
+Sur 8 bits : plage de -128 à +127
+
+Exemples de débordement :
+• 100 + 50 = 150 → trop grand (> 127)
+• -100 + (-50) = -150 → trop petit (< -128)
+        </pre>
+        
+        <p><strong>B. Exemples de débordements</strong></p>
+        <pre>
+Exemple 1 : 100 + 50 sur 8 bits
+
+100 = 01100100
+ 50 = 00110010
+
+  01100100  (+100)
++ 00110010  (+50)
+──────────
+  10010110  
+
+Résultat : 10010110 (bit de signe = 1, donc négatif ?!)
+
+Lecture : -128 + 16 + 4 + 2 = -106
+
+❌ DÉBORDEMENT ! On attendait 150, on obtient -106
+Les deux opérandes positifs donnent un résultat négatif !
+        </pre>
+        
+        <pre>
+Exemple 2 : (-100) + (-50) sur 8 bits
+
+-100 = 10011100
+ -50 = 11001110
+
+  10011100  (-100)
++ 11001110  (-50)
+──────────
+ 101101010
+  ↑
+Retenue ignorée
+
+Résultat : 01101010 (positif ?!)
+
+Lecture : 64 + 32 + 8 + 2 = 106
+
+❌ DÉBORDEMENT ! On attendait -150, on obtient +106
+Les deux opérandes négatifs donnent un résultat positif !
+        </pre>
+        
+        <p><strong>C. Cas sans débordement (signes opposés)</strong></p>
+        <pre>
+Exemple : 100 + (-50) = 50 sur 8 bits
+
+ 100 = 01100100
+ -50 = 11001110
+
+  01100100  (+100)
++ 11001110  (-50)
+──────────
+ 100110010
+  ↑
+Retenue ignorée
+
+Résultat : 00110010 = 32 + 16 + 2 = 50 ✓
+
+✅ PAS de débordement : signes différents
+        </pre>
+
+        <h4>🔄 6. Soustraction en complément à 2</h4>
+        
+        <p><strong>Principe : a - b = a + (-b)</strong></p>
+        <pre>
+Pour calculer a - b :
+1. Calculer -b (complément à 2 de b)
+2. Faire a + (-b)
+
+Exemple : 10 - 3 sur 8 bits
+
+Étape 1 : Calculer -3
++3 = 00000011
+Inverser = 11111100
+Ajouter 1 = 11111101 = -3
+
+Étape 2 : Faire 10 + (-3)
+  00001010  (+10)
++ 11111101  (-3)
+──────────
+ 100000111
+  ↑
+Ignoré
+
+Résultat : 00000111 = 7 ✓
+
+Avantage : On utilise le MÊME circuit pour + et - !
+        </pre>
+
+        <h4>📊 7. Tableau récapitulatif complet</h4>
+        
+        <pre>
+REPRÉSENTATION SUR 8 BITS
+┌──────────┬───────────┬────────────────────────┐
+│ Décimal  │ Binaire   │ Explication            │
+├──────────┼───────────┼────────────────────────┤
+│  +127    │ 01111111  │ Valeur max positive    │
+│  +5      │ 00000101  │ Bit de signe = 0       │
+│  +1      │ 00000001  │                        │
+│   0      │ 00000000  │ UN SEUL zéro !         │
+│  -1      │ 11111111  │ Tous les bits à 1      │
+│  -5      │ 11111011  │ Compl. à 2 de +5       │
+│  -127    │ 10000001  │                        │
+│  -128    │ 10000000  │ Valeur min (spéciale)  │
+└──────────┴───────────┴────────────────────────┘
+
+RÈGLES D'OR :
+1. Bit de gauche = 0 → positif
+2. Bit de gauche = 1 → négatif
+3. Plage : -2^(n-1) à 2^(n-1) - 1
+4. Pour -x : inverser bits de x, puis +1
+5. Addition : normale, ignorer retenue finale
+6. Débordement : (+)+(+)→(-) ou (-)+(-)→(+)
+        </pre>
+
+        <h4>💻 8. En Python</h4>
+        
+        <p><strong>A. Python gère automatiquement les entiers</strong></p>
+        <pre>
+En Python, les int ont une taille ILLIMITÉE !
+Pas de débordement possible avec int classiques.
+
+a = 5
+b = -3
+c = a + b  # Python gère tout automatiquement
+print(c)   # 2
+
+# Même avec de très grands nombres
+grand = 2**1000  # Aucun problème !
+        </pre>
+        
+        <p><strong>B. Simuler le complément à 2 en Python</strong></p>
+        <pre>
+def complement_a_2(n, nb_bits=8):
+    """
+    Convertit un nombre en complément à 2
+    n : nombre à convertir (positif ou négatif)
+    nb_bits : nombre de bits (défaut 8)
+    Renvoie : représentation binaire en string
+    """
+    # Masque pour garder nb_bits bits
+    masque = (1 << nb_bits) - 1  # 2^nb_bits - 1
+    
+    if n >= 0:
+        # Nombre positif : conversion directe
+        binaire = n
+    else:
+        # Nombre négatif : complément à 2
+        # Équivalent à : 2^nb_bits + n (car n est négatif)
+        binaire = (1 << nb_bits) + n
+    
+    # Garder seulement nb_bits bits
+    binaire = binaire & masque
+    
+    # Convertir en string binaire
+    return bin(binaire)[2:].zfill(nb_bits)
+
+# Tests
+print(complement_a_2(5, 8))    # 00000101
+print(complement_a_2(-5, 8))   # 11111011
+print(complement_a_2(127, 8))  # 01111111
+print(complement_a_2(-128, 8)) # 10000000
+        </pre>
+        
+        <p><strong>C. Lire un nombre en complément à 2</strong></p>
+        <pre>
+def lire_complement_a_2(binaire):
+    """
+    Lit un nombre en complément à 2
+    binaire : string de bits (ex: "11111011")
+    Renvoie : valeur décimale
+    """
+    nb_bits = len(binaire)
+    
+    # Convertir en entier
+    valeur = int(binaire, 2)
+    
+    # Vérifier le bit de signe
+    bit_signe = 1 << (nb_bits - 1)  # 2^(nb_bits-1)
+    
+    if valeur & bit_signe:  # Si bit de signe = 1
+        # Nombre négatif
+        # Soustraire 2^nb_bits
+        valeur = valeur - (1 << nb_bits)
+    
+    return valeur
+
+# Tests
+print(lire_complement_a_2("00000101"))  # 5
+print(lire_complement_a_2("11111011"))  # -5
+print(lire_complement_a_2("01111111"))  # 127
+print(lire_complement_a_2("10000000"))  # -128
+        </pre>
+        
+        <p><strong>D. Addition avec détection de débordement</strong></p>
+        <pre>
+def addition_avec_overflow(a, b, nb_bits=8):
+    """
+    Addition en complément à 2 avec détection d'overflow
+    """
+    # Masque pour nb_bits
+    masque = (1 << nb_bits) - 1
+    max_val = (1 << (nb_bits - 1)) - 1  # 2^(n-1) - 1
+    min_val = -(1 << (nb_bits - 1))     # -2^(n-1)
+    
+    # Addition normale
+    resultat = a + b
+    
+    # Détection overflow
+    overflow = False
+    if resultat > max_val or resultat < min_val:
+        overflow = True
+    
+    # Résultat en complément à 2 (simulé)
+    if resultat < 0:
+        binaire = (1 << nb_bits) + resultat
+    else:
+        binaire = resultat
+    binaire = binaire & masque
+    
+    # Reconvertir en signé
+    if binaire & (1 << (nb_bits - 1)):
+        resultat_final = binaire - (1 << nb_bits)
+    else:
+        resultat_final = binaire
+    
+    return resultat_final, overflow
+
+# Tests
+print(addition_avec_overflow(100, 50))  # (-106, True) overflow !
+print(addition_avec_overflow(50, 30))   # (80, False) ok
+print(addition_avec_overflow(-100, -50)) # (106, True) overflow !
+        </pre>
+
+        <h4>🎨 9. Cas particuliers et astuces</h4>
+        
+        <p><strong>A. Le cas de -128 sur 8 bits</strong></p>
+        <pre>
+-128 = 10000000
+
+C'est un nombre SPÉCIAL :
+• Son complément à 2 donne... lui-même !
+
+Vérification :
+10000000 (c'est -128)
+Inverser : 01111111
+Ajouter 1 : 10000000 (on retombe sur -128 !)
+
+Conséquence : -(-128) = -128 sur 8 bits !
+C'est le SEUL nombre avec cette propriété.
+        </pre>
+        
+        <p><strong>B. Reconnaissance rapide des petits nombres</strong></p>
+        <pre>
+Nombres à connaître par cœur (8 bits) :
+
+00000000 =   0
+00000001 =  +1
+11111111 =  -1  (tous les bits à 1)
+11111110 =  -2
+11111101 =  -3
+...
+10000000 = -128 (1 suivi de zéros)
+01111111 = +127 (0 suivi de uns)
+        </pre>
+        
+        <p><strong>C. Astuce : Détecter le signe rapidement</strong></p>
+        <pre>
+Pour savoir si un nombre est négatif :
+→ Regarder le bit de GAUCHE (poids fort)
+
+0_______ = positif ou nul
+1_______ = négatif
+
+Pas besoin de tout calculer !
+        </pre>
+        
+        <p><strong>D. Extension de signe (sign extension)</strong></p>
+        <pre>
+Pour passer de 8 bits à 16 bits en gardant la valeur :
+→ RÉPÉTER le bit de signe
+
+Exemples :
++5 sur 8 bits  : 00000101
++5 sur 16 bits : 00000000 00000101
+                 ^^^^^^^^ répétition du 0
+
+-5 sur 8 bits  : 11111011
+-5 sur 16 bits : 11111111 11111011
+                 ^^^^^^^^ répétition du 1
+
+Règle : Copier le bit de signe vers la gauche
+        </pre>
+
+        <h4>⚠️ 10. Pièges et erreurs courantes</h4>
+        
+        <p><strong>Piège 1 : Oublier qu'il y a un négatif de plus</strong></p>
+        <pre>
+❌ ERREUR : Penser que sur 8 bits : -127 à +127
+✅ CORRECT : Sur 8 bits : -128 à +127
+
+Il y a 256 valeurs au total :
+• 128 négatives (-128 à -1)
+• 128 non-négatives (0 à +127)
+        </pre>
+        
+        <p><strong>Piège 2 : Mal faire le complément à 2</strong></p>
+        <pre>
+❌ ERREUR : Oublier le +1 final
++5 = 00000101
+Inverser = 11111010  ← Ce n'est PAS -5 !
+
+✅ CORRECT :
++5 = 00000101
+Inverser = 11111010
+AJOUTER 1 = 11111011  ← C'est -5 !
+        </pre>
+        
+        <p><strong>Piège 3 : Confondre représentation et valeur</strong></p>
+        <pre>
+11111011 ne vaut PAS 251 !
+
+En non-signé : 11111011 = 251
+En signé (complément à 2) : 11111011 = -5
+
+Même suite de bits, interprétations différentes !
+        </pre>
+        
+        <p><strong>Piège 4 : Mal détecter les débordements</strong></p>
+        <pre>
+❌ ERREUR : Penser qu'une retenue = overflow
+
+✅ CORRECT : Overflow seulement si :
+   (+) + (+) → résultat négatif
+   (-) + (-) → résultat positif
+
+Regarder les SIGNES, pas la retenue !
+        </pre>
+        
+        <p><strong>Piège 5 : Mauvaise extension de signe</strong></p>
+        <pre>
+❌ ERREUR : Ajouter des 0 à gauche pour tous les nombres
+-5 sur 8 bits = 11111011
+-5 sur 16 bits ≠ 00000000 11111011 (ça fait +251 !)
+
+✅ CORRECT : Répéter le bit de signe
+-5 sur 16 bits = 11111111 11111011
+        </pre>
+
+        <h4>💡 Points clés à retenir</h4>
+        <ul>
+            <li>✅ Complément à 2 = méthode universelle pour les entiers signés</li>
+            <li>✅ Pour -n : inverser bits de n, puis ajouter 1</li>
+            <li>✅ Bit de gauche = bit de signe (0=positif, 1=négatif)</li>
+            <li>✅ Sur n bits : -2^(n-1) à 2^(n-1) - 1</li>
+            <li>✅ Un négatif de plus que de positifs</li>
+            <li>✅ Addition normale, ignorer retenue finale</li>
+            <li>✅ Overflow : (+)+(+)→(-) ou (-)+(-)→(+)</li>
+            <li>✅ Soustraction = addition du complément à 2</li>
+            <li>✅ Extension de signe : répéter le bit de gauche</li>
+        </ul>
+
+        <h4>🎯 EXERCICES À FAIRE SOI-MÊME</h4>
+        
+        <p><strong>Exercice 1 : Conversions simples (8 bits)</strong></p>
+        <p>Représenter en complément à 2 :</p>
+        <p>a) +12</p>
+        <p>b) -12</p>
+        <p>c) +127</p>
+        <p>d) -128</p>
+        <p>e) -1</p>
+        
+        <p><strong>Exercice 2 : Lecture de nombres</strong></p>
+        <p>Quelle est la valeur décimale de ces nombres en complément à 2 (8 bits) :</p>
+        <p>a) 00001111</p>
+        <p>b) 11110000</p>
+        <p>c) 10101010</p>
+        <p>d) 01010101</p>
+        <p>e) 11111111</p>
+        
+        <p><strong>Exercice 3 : Additions sans débordement</strong></p>
+        <p>Calculer en complément à 2 sur 8 bits :</p>
+        <p>a) 15 + 10</p>
+        <p>b) 20 + (-15)</p>
+        <p>c) (-10) + (-5)</p>
+        <p>d) 50 + (-30)</p>
+        
+        <p><strong>Exercice 4 : Détection de débordements</strong></p>
+        <p>Y a-t-il débordement (overflow) sur 8 bits ?</p>
+        <p>a) 100 + 20</p>
+        <p>b) 100 + 30</p>
+        <p>c) (-100) + (-20)</p>
+        <p>d) (-100) + (-30)</p>
+        <p>e) 100 + (-50)</p>
+        
+        <p><strong>Exercice 5 : Plages de valeurs</strong></p>
+        <p>a) Quelle est la plage sur 4 bits en complément à 2 ?</p>
+        <p>b) Quelle est la plage sur 16 bits en complément à 2 ?</p>
+        <p>c) Combien de bits faut-il pour représenter -1000 ?</p>
+        <p>d) Sur 12 bits, combien y a-t-il de valeurs négatives ?</p>
+        
+        <p><strong>Exercice 6 : Extension de signe</strong></p>
+        <p>Étendre de 8 à 16 bits :</p>
+        <p>a) +10 = 00001010</p>
+        <p>b) -10 = 11110110</p>
+        <p>c) -1 = 11111111</p>
+        <p>d) +127 = 01111111</p>
+        
+        <p><strong>Exercice 7 : Complément à 2 étape par étape</strong></p>
+        <p>Calculer -25 en complément à 2 sur 8 bits en détaillant les 3 étapes</p>
+        
+        <p><strong>Exercice 8 : Soustraction</strong></p>
+        <p>Calculer 30 - 12 sur 8 bits en utilisant le complément à 2</p>
+        
+        <p><strong>Exercice 9 : Problème pratique</strong></p>
+        <p>Un capteur de température renvoie des valeurs sur 8 bits en complément à 2, 
+        où chaque unité représente 0,5°C. Le capteur renvoie 11101000.</p>
+        <p>a) Quelle est la valeur en décimal ?</p>
+        <p>b) Quelle est la température en °C ?</p>
+        
+        <p><strong>Exercice 10 : Programmation Python</strong></p>
+        <p>Écrire une fonction qui vérifie si une addition de deux nombres 
+        provoque un débordement sur n bits.</p>
+        <pre>
+def detecte_overflow(a, b, nb_bits=8):
+    # À compléter
+    pass
+
+# Tests
+print(detecte_overflow(100, 30, 8))    # True
+print(detecte_overflow(50, 30, 8))     # False
+print(detecte_overflow(-100, -30, 8))  # True
+        </pre>
+
+        <h4>🔍 Solutions des exercices</h4>
+        <details>
+            <summary>Cliquer pour voir les solutions</summary>
+            <pre>
+<strong>Exercice 1 : Conversions simples (8 bits)</strong>
+
+a) +12 = 00001100
+   (Conversion directe en binaire)
+
+b) -12 :
+   Étape 1 : +12 = 00001100
+   Étape 2 : Inverser = 11110011
+   Étape 3 : +1 = 11110100
+   Réponse : -12 = 11110100
+
+c) +127 = 01111111
+   (Le plus grand positif sur 8 bits)
+
+d) -128 = 10000000
+   (Le plus petit négatif sur 8 bits)
+
+e) -1 :
+   Étape 1 : +1 = 00000001
+   Étape 2 : Inverser = 11111110
+   Étape 3 : +1 = 11111111
+   Réponse : -1 = 11111111
+
+<strong>Exercice 2 : Lecture de nombres</strong>
+
+a) 00001111
+   Bit de signe = 0 → positif
+   = 8 + 4 + 2 + 1 = 15
+
+b) 11110000
+   Bit de signe = 1 → négatif
+   Méthode 1 (complément à 2) :
+     Inverser : 00001111
+     +1 : 00010000 = 16
+     Donc c'est -16
+   Méthode 2 (formule) :
+     = -128 + 64 + 32 + 16 = -16
+
+c) 10101010
+   Bit de signe = 1 → négatif
+   Inverser : 01010101
+   +1 : 01010110 = 64 + 16 + 4 + 2 = 86
+   Donc c'est -86
+
+d) 01010101
+   Bit de signe = 0 → positif
+   = 64 + 16 + 4 + 1 = 85
+
+e) 11111111
+   = -1 (tous les bits à 1 = -1 en complément à 2)
+
+<strong>Exercice 3 : Additions sans débordement</strong>
+
+a) 15 + 10 = 25
+   00001111 (+15)
+ + 00001010 (+10)
+   ─────────
+   00011001 (+25) ✓
+
+b) 20 + (-15) = 5
+   -15 en complément à 2 :
+   +15 = 00001111
+   Inverser = 11110000
+   +1 = 11110001
+   
+   00010100 (+20)
+ + 11110001 (-15)
+   ─────────
+  100000101
+   Ignorer retenue
+   00000101 (+5) ✓
+
+c) (-10) + (-5) = -15
+   -10 = 11110110
+   -5 = 11111011
+   
+   11110110 (-10)
+ + 11111011 (-5)
+   ─────────
+  111110001
+   Ignorer retenue
+   11110001 (-15) ✓
+
+d) 50 + (-30) = 20
+   50 = 00110010
+   -30 = 11100010
+   
+   00110010 (+50)
+ + 11100010 (-30)
+   ─────────
+  100010100
+   Ignorer retenue
+   00010100 (+20) ✓
+
+<strong>Exercice 4 : Détection de débordements</strong>
+
+a) 100 + 20 = 120 → PAS d'overflow (< 127)
+
+b) 100 + 30 = 130 → OVERFLOW !
+   130 > 127 (max sur 8 bits)
+   Deux positifs → résultat dépasserait +127
+
+c) (-100) + (-20) = -120 → PAS d'overflow (> -128)
+
+d) (-100) + (-30) = -130 → OVERFLOW !
+   -130 < -128 (min sur 8 bits)
+   Deux négatifs → résultat dépasserait -128
+
+e) 100 + (-50) = 50 → PAS d'overflow
+   Signes différents → jamais d'overflow
+
+<strong>Exercice 5 : Plages de valeurs</strong>
+
+a) 4 bits : -2³ à 2³-1 = -8 à +7
+
+b) 16 bits : -2¹⁵ à 2¹⁵-1 = -32768 à +32767
+
+c) Pour -1000 :
+   1000 < 2⁹ = 512 (trop petit)
+   1000 > 2¹⁰ = 1024 (OK)
+   Il faut 11 bits (2¹⁰ = -1024 à +1023)
+
+d) 12 bits : 2¹² valeurs totales = 4096
+   Dont 2¹¹ = 2048 valeurs négatives
+
+<strong>Exercice 6 : Extension de signe</strong>
+
+a) +10 = 00001010 (8 bits)
+   → 00000000 00001010 (16 bits)
+   (Répéter le 0)
+
+b) -10 = 11110110 (8 bits)
+   → 11111111 11110110 (16 bits)
+   (Répéter le 1)
+
+c) -1 = 11111111 (8 bits)
+   → 11111111 11111111 (16 bits)
+
+d) +127 = 01111111 (8 bits)
+   → 00000000 01111111 (16 bits)
+
+<strong>Exercice 7 : Complément à 2 de -25</strong>
+
+ÉTAPE 1 : Écrire +25 en binaire sur 8 bits
+25 = 16 + 8 + 1 = 00011001
+
+ÉTAPE 2 : Inverser tous les bits
+00011001 → 11100110
+
+ÉTAPE 3 : Ajouter 1
+  11100110
++        1
+  ────────
+  11100111
+
+Réponse : -25 = 11100111
+
+<strong>Exercice 8 : Soustraction 30 - 12</strong>
+
+Étape 1 : Calculer -12
++12 = 00001100
+Inverser = 11110011
++1 = 11110100 = -12
+
+Étape 2 : Faire 30 + (-12)
+  00011110 (+30)
++ 11110100 (-12)
+  ─────────
+ 100010010
+  Ignorer retenue
+  00010010 = 18 ✓
+
+<strong>Exercice 9 : Problème pratique</strong>
+
+a) 11101000 en complément à 2
+   Bit de signe = 1 → négatif
+   Inverser : 00010111
+   +1 : 00011000 = 16 + 8 = 24
+   Valeur : -24
+
+b) Température = -24 × 0,5°C = -12°C
+
+<strong>Exercice 10 : Programmation Python</strong>
+
+def detecte_overflow(a, b, nb_bits=8):
+    """
+    Détecte si l'addition a + b provoque un overflow
+    sur nb_bits bits en complément à 2
+    """
+    # Limites en complément à 2
+    max_val = (1 << (nb_bits - 1)) - 1  # 2^(n-1) - 1
+    min_val = -(1 << (nb_bits - 1))     # -2^(n-1)
+    
+    # Calculer le résultat
+    resultat = a + b
+    
+    # Overflow si dépassement des limites
+    if resultat > max_val or resultat < min_val:
+        return True
+    return False
+
+# Tests
+print(detecte_overflow(100, 30, 8))    # True (130 > 127)
+print(detecte_overflow(50, 30, 8))     # False (80 ok)
+print(detecte_overflow(-100, -30, 8))  # True (-130 < -128)
+print(detecte_overflow(100, -50, 8))   # False (50 ok)
+
+# Autre méthode : vérifier les signes
+def detecte_overflow_v2(a, b, nb_bits=8):
+    """Version alternative basée sur les signes"""
+    max_val = (1 << (nb_bits - 1)) - 1
+    min_val = -(1 << (nb_bits - 1))
+    
+    resultat = a + b
+    
+    # Overflow seulement si :
+    # - Deux positifs → résultat négatif
+    # - Deux négatifs → résultat positif
+    if a > 0 and b > 0 and resultat > max_val:
+        return True
+    if a < 0 and b < 0 and resultat < min_val:
+        return True
+    return False
+            </pre>
+        </details>
+
+        <h4>📝 Checklist pour l'évaluation</h4>
+        <ul>
+            <li>✓ Je connais les 3 étapes du complément à 2 (écrire, inverser, +1)</li>
+            <li>✓ Je sais que le bit de gauche indique le signe</li>
+            <li>✓ Je connais la plage : -2^(n-1) à 2^(n-1) - 1</li>
+            <li>✓ Je sais qu'il y a un négatif de plus que de positifs</li>
+            <li>✓ Je peux convertir +n → -n en complément à 2</li>
+            <li>✓ Je peux lire un nombre en complément à 2</li>
+            <li>✓ Je sais additionner en ignorant la retenue finale</li>
+            <li>✓ Je détecte les débordements : (+)+(+)→(-) ou (-)+(-)→(+)</li>
+            <li>✓ Je sais que soustraction = addition du complément</li>
+            <li>✓ Je maîtrise l'extension de signe (répéter bit de gauche)</li>
+            <li>✓ Je connais les cas particuliers (-128, -1)</li>
+            <li>✓ J'évite les pièges courants (oublier +1, mal interpréter, etc.)</li>
+        </ul>
+
+        <h4>🚀 Pour aller plus loin</h4>
+        <ul>
+            <li><strong>Complément à 1 :</strong> Comprendre pourquoi il n'est pas utilisé</li>
+            <li><strong>Virgule flottante :</strong> Représentation des nombres réels (IEEE 754)</li>
+            <li><strong>Décalages de bits :</strong> Multiplication/division rapide par 2</li>
+            <li><strong>Opérations bit à bit :</strong> AND, OR, XOR, NOT</li>
+            <li><strong>Arithmétique saturée :</strong> Bloquer au min/max au lieu de déborder</li>
+            <li><strong>Détection matérielle :</strong> Flag de débordement dans les processeurs</li>
+        </ul>
+
+        <h4>📚 Applications réelles</h4>
+        <ul>
+            <li><strong>Processeurs :</strong> Tous les CPU modernes utilisent le complément à 2</li>
+            <li><strong>Capteurs :</strong> Températures, accéléromètres (valeurs négatives)</li>
+            <li><strong>Finance :</strong> Débits/crédits (comptes bancaires)</li>
+            <li><strong>Graphisme :</strong> Coordonnées relatives, transformations</li>
+            <li><strong>Audio :</strong> Échantillons signés (sons positifs et négatifs)</li>
+        </ul>
+    `
             }
         ]
     },
@@ -2693,6 +3660,107 @@ const questionsData = {
             ],
             correct: 2,
             explanation: "16 → 8 → 4 → 2 → 1 = 4 divisions. Formule : log₂(16) = 4. Au pire cas, on fait 5 comparaisons (la dernière sur un seul élément)."
+        }
+    ],
+    "nsi-7": [
+        {
+            question: "En complément à 2 sur 8 bits, quelle est la plage de valeurs représentables ?",
+            answers: [
+                "De -127 à +127",
+                "De -128 à +128",
+                "De -128 à +127",
+                "De 0 à 255"
+            ],
+            correct: 2,
+            explanation: "Sur n bits en complément à 2, la plage est de -2^(n-1) à 2^(n-1) - 1. Sur 8 bits : -128 à +127. Il y a un négatif de plus que de positifs !"
+        },
+        {
+            question: "Quelle est la représentation de -5 en complément à 2 sur 8 bits ?",
+            answers: [
+                "10000101",
+                "11111010",
+                "11111011",
+                "00000101"
+            ],
+            correct: 2,
+            explanation: "+5 = 00000101, inverser = 11111010, ajouter 1 = 11111011. Ne pas oublier le +1 final !"
+        },
+        {
+            question: "Que vaut 11111111 en complément à 2 sur 8 bits ?",
+            answers: [
+                "255",
+                "-1",
+                "-127",
+                "-255"
+            ],
+            correct: 1,
+            explanation: "Tous les bits à 1 représentent -1 en complément à 2. Pour vérifier : inverser donne 00000000, +1 donne 00000001 = 1, donc c'est -1."
+        },
+        {
+            question: "Pour calculer 20 - 7 en complément à 2, que doit-on faire ?",
+            answers: [
+                "Soustraire directement 00010100 - 00000111",
+                "Calculer 20 + (-7) en faisant le complément à 2 de 7",
+                "Inverser les bits de 7 puis additionner",
+                "Multiplier par -1"
+            ],
+            correct: 1,
+            explanation: "La soustraction a - b = a + (-b). On calcule d'abord -7 en complément à 2, puis on additionne 20 + (-7). Même circuit que l'addition !"
+        },
+        {
+            question: "Quel est le bit de signe en complément à 2 ?",
+            answers: [
+                "Le bit de poids faible (à droite)",
+                "Le bit du milieu",
+                "Le bit de poids fort (à gauche)",
+                "Il n'y a pas de bit de signe"
+            ],
+            correct: 2,
+            explanation: "Le bit de poids fort (le plus à gauche) indique le signe : 0 = positif ou nul, 1 = négatif."
+        },
+        {
+            question: "Que vaut 10000000 en complément à 2 sur 8 bits ?",
+            answers: [
+                "-0",
+                "-127",
+                "-128",
+                "128"
+            ],
+            correct: 2,
+            explanation: "10000000 = -128, c'est le plus petit nombre représentable sur 8 bits en complément à 2. C'est un nombre spécial : son complément à 2 donne lui-même !"
+        },
+        {
+            question: "Pour étendre -5 de 8 bits à 16 bits, que fait-on ?",
+            answers: [
+                "Ajouter des 0 à gauche",
+                "Ajouter des 0 à droite",
+                "Répéter le bit de signe (1) à gauche",
+                "Refaire le complément à 2 sur 16 bits"
+            ],
+            correct: 2,
+            explanation: "-5 sur 8 bits = 11111011. Sur 16 bits = 11111111 11111011. On répète le bit de signe (extension de signe) pour conserver la valeur."
+        },
+        {
+            question: "En complément à 2, combien y a-t-il de représentations du zéro ?",
+            answers: [
+                "Deux (0 positif et 0 négatif)",
+                "Une seule (00000000)",
+                "Aucune",
+                "Cela dépend du nombre de bits"
+            ],
+            correct: 1,
+            explanation: "Le complément à 2 a UN SEUL zéro : 00000000. C'est un avantage majeur par rapport aux méthodes signe-valeur ou complément à 1."
+        },
+        {
+            question: "Sur 4 bits en complément à 2, combien de valeurs négatives peut-on représenter ?",
+            answers: [
+                "7",
+                "8",
+                "15",
+                "16"
+            ],
+            correct: 1,
+            explanation: "Sur 4 bits : -8 à +7 (16 valeurs totales). Il y a 8 valeurs négatives (-8, -7, -6, -5, -4, -3, -2, -1) et 8 non-négatives (0 à +7)."
         }
     ],
     "phy-1": [
