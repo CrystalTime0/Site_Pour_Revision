@@ -31,41 +31,6 @@ Site web de révision pour les élèves de Première spécialité en NSI, Physiq
 - Produit scalaire
 - Probabilités
 
-## 🚀 Installation en local
-
-### Prérequis
-- Node.js installé sur votre ordinateur (https://nodejs.org)
-
-### Installation
-1. Décompressez le fichier ZIP
-2. Ouvrez un terminal dans le dossier du projet
-3. Installez les dépendances :
-```bash
-npm install
-```
-
-### Lancement
-```bash
-npm start
-```
-
-Le site sera accessible à l'adresse : http://localhost:3000
-
-## 🌐 Hébergement gratuit en ligne
-
-Consultez les guides détaillés :
-
-- **📖 GUIDE_HEBERGEMENT.md** : Guide complet des hébergeurs gratuits
-- **🎬 TUTORIEL_DEPLOIEMENT.md** : Tutoriel pas à pas illustré
-
-**Solutions recommandées :**
-- ⚡ **Glitch** : Déploiement en 2 minutes, sans configuration
-- 🚀 **Render** : Professionnel avec GitHub, gratuit
-- 🎯 **Railway** : Simple et généreux
-- ⚡ **Vercel** : Ultra-rapide
-
-Tous permettent d'avoir une URL publique gratuite pour partager le site avec toute la classe !
-
 ## 💻 Utilisation
 
 1. **Choisir une matière** : Cliquez sur NSI, Physique-Chimie ou Mathématiques
@@ -108,10 +73,6 @@ revision-site/
 ├── server.js                    # Serveur Node.js
 ├── package.json                 # Configuration npm
 ├── README.md                    # Ce fichier
-├── GUIDE_HEBERGEMENT.md        # Guide hébergement gratuit
-├── TUTORIEL_DEPLOIEMENT.md     # Tutoriel pas à pas
-├── GUIDE_RAPIDE.md             # Guide rapide ajout contenu
-├── GUIDE_AJOUT_CONTENU.md      # Guide détaillé contenu
 ├── TEMPLATES.js                # Templates de contenu
 ├── .gitignore                  # Fichiers à ignorer
 └── public/
@@ -129,43 +90,6 @@ Pour modifier le contenu :
 - **Cours** : Éditez `coursData` dans `public/js/data.js`
 - **Questions** : Éditez `questionsData` dans `public/js/data.js`
 - **Styles** : Modifiez `public/css/style.css`
-
-## 📚 Documentation
-
-- **Installation locale** : Voir section "Installation" ci-dessus
-- **Hébergement en ligne** : `GUIDE_HEBERGEMENT.md`
-- **Déploiement pas à pas** : `TUTORIEL_DEPLOIEMENT.md`
-- **Ajouter du contenu** : `GUIDE_RAPIDE.md` ou `GUIDE_AJOUT_CONTENU.md`
-- **Templates** : `TEMPLATES.js`
-
-## 🆘 Dépannage
-
-### Le site ne démarre pas en local
-```bash
-# Vérifiez que Node.js est installé
-node --version
-
-# Réinstallez les dépendances
-rm -rf node_modules
-npm install
-```
-
-### Erreurs après modification
-- Vérifiez la syntaxe JavaScript dans `data.js`
-- Ouvrez la console du navigateur (F12) pour voir les erreurs
-- Consultez `GUIDE_AJOUT_CONTENU.md` section "Dépannage"
-
-### Problèmes d'hébergement
-- Consultez `GUIDE_HEBERGEMENT.md` section "Problèmes fréquents"
-- Vérifiez que `server.js` utilise `process.env.PORT`
-- Consultez les logs de votre hébergeur
-
-## 📧 Support
-
-Pour toute question ou suggestion :
-- Consultez d'abord les guides dans le projet
-- Contactez votre enseignant
-- Vérifiez la documentation de votre hébergeur
 
 ## 📄 Licence
 
