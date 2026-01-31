@@ -6,7 +6,7 @@ const coursData = {
             {
                 id: "nsi-1",
                 title: "Représentation des données",
-                description: "Types, valeurs de base, bases numériques - Cours complet",
+                description: "Types, valeurs de base, bases numériques",
                 content: `
         <h4>📚 Introduction - Pourquoi représenter les données ?</h4>
         <p>Les ordinateurs ne comprennent qu'une seule chose : l'électricité. Un courant passe (1) ou ne passe pas (0). 
@@ -324,7 +324,7 @@ c) 1500 × 8 = 12 000 bits
             {
                 id: "nsi-2",
                 title: "Python : Variables et opérations",
-                description: "Syntaxe Python, variables, opérateurs - Cours complet",
+                description: "Syntaxe Python, variables, opérateurs",
                 content: `
         <h4>📚 Introduction - Qu'est-ce qu'un programme ?</h4>
         <p>Un programme est une suite d'instructions que l'ordinateur exécute dans l'ordre. 
@@ -794,7 +794,7 @@ print(a, b)  # 20 10
             {
                 id: "nsi-3",
                 title: "Structures de contrôle : Conditions et Boucles",
-                description: "Maîtriser le flux d'exécution : if, for, while - Cours complet ultra-détaillé",
+                description: "Maîtriser le flux d'exécution : if, for, while",
                 content: `
         <h4>📚 Introduction - L'intelligence du code</h4>
         <p>Jusqu'à présent, vos programmes étaient "linéaires" : ils s'exécutaient de la première à la dernière ligne sans jamais dévier. 
@@ -985,7 +985,7 @@ print(f"La factorielle de {n} est {fact}")
             {
                 id: "nsi-4",
                 title: "Les Listes (Tableaux)",
-                description: "Manipuler des séquences de données - Cours complet ultra-détaillé",
+                description: "Manipuler des séquences de données",
                 content: `
         <h4>📚 Introduction - Pourquoi les listes ?</h4>
         <p>Imaginez que vous deviez stocker les noms de 35 élèves d'une classe. Créer 35 variables (eleve1, eleve2...) serait un cauchemar à gérer. 
@@ -1165,7 +1165,7 @@ moyenne = somme / len(L)
             {
                 id: "nsi-5",
                 title: "Les Fonctions",
-                description: "Modularité et réutilisation du code - Cours complet ultra-détaillé",
+                description: "Modularité et réutilisation du code",
                 content: `
         <h4>📚 Introduction - Organiser son code</h4>
         <p>En programmation, on évite au maximum de se répéter (principe DRY : Don't Repeat Yourself). 
@@ -1317,419 +1317,624 @@ def compter_voyelles(phrase):
             },
             {
                 id: "nsi-6",
-                title: "Dictionnaires et Tuples",
-                description: "Structures de données évoluées : p-uplets et tables associatives - Cours complet",
+                title: "Recherche dichotomique",
+                description: "Algorithme de recherche par dichotomie",
                 content: `
-        <h4>📚 Introduction - Dépasser les limites des listes</h4>
-        <p>Les listes sont pratiques, mais elles ont des limites. Comment stocker les coordonnées d'un point (x, y) de façon sécurisée ? Comment retrouver l'âge d'un élève sans parcourir toute une liste ? Pour cela, nous utilisons les <strong>Tuples</strong> (p-uplets) et les <strong>Dictionnaires</strong>.</p>
-
-        <h4>📦 1. Les Tuples (p-uplets)</h4>
-        <p>Un tuple est une suite ordonnée d'éléments, comme une liste, mais à une différence capitale : il est <strong>IMMUTABLE</strong> (on ne peut pas le modifier après création).</p>
+        <h4>📚 Introduction - Pourquoi la dichotomie ?</h4>
+        <p>Imaginez que vous cherchez un mot dans un dictionnaire de 1000 pages. Deux approches :</p>
+        <ul>
+            <li><strong>Méthode naïve :</strong> Tourner les pages une par une depuis le début → jusqu'à 1000 pages à parcourir</li>
+            <li><strong>Méthode intelligente :</strong> Ouvrir au milieu, comparer, éliminer la moitié inutile, recommencer → environ 10 étapes maximum !</li>
+        </ul>
         
-        <pre>
-# Création avec des parenthèses
-mon_tuple = (10, 20)
-point_3d = (5, -2, 8)
-
-# Accès (comme les listes)
-print(mon_tuple[0]) # 10
-
-# ⚠️ ERREUR :
-mon_tuple[0] = 15 # TypeError: 'tuple' object does not support item assignment
-        </pre>
-        <p><strong>Pourquoi utiliser un tuple ?</strong> C'est plus léger en mémoire et c'est une sécurité : on est certain que les données ne seront pas modifiées par erreur par une fonction.</p>
-
-        <h4>📖 2. Les Dictionnaires</h4>
-        <p>Un dictionnaire est une collection <strong>non-ordonnée</strong> qui utilise un système de <strong>Clé : Valeur</strong>. C'est comme un vrai dictionnaire : on cherche un mot (la clé) pour trouver sa définition (la valeur).</p>
-
-        <pre>
-# Création avec des accolades
-eleve = {
-    "nom": "Dupont",
-    "prenom": "Jean",
-    "age": 16,
-    "options": ["NSI", "Maths"]
-}
-
-# Accès par la clé
-print(eleve["nom"]) # Dupont
-        </pre>
-
-        <h4>🛠️ 3. Manipuler un dictionnaire</h4>
-        <pre>
-# Ajouter ou modifier
-eleve["note"] = 15
-eleve["age"] = 17
-
-# Supprimer
-del eleve["prenom"]
-
-# Vérifier si une clé existe
-if "nom" in eleve:
-    print("La clé existe")
-        </pre>
-
-        <h4>🔄 4. Parcourir un dictionnaire</h4>
-        <pre>
-# Parcourir les clés
-for k in eleve.keys():
-    print(k)
-
-# Parcourir les valeurs
-for v in eleve.values():
-    print(v)
-
-# Parcourir les deux (très utilisé)
-for k, v in eleve.items():
-    print(f"Clé: {k}, Valeur: {v}")
-        </pre>
-
-        <h4>🚫 5. Pièges et Erreurs</h4>
-        <ul>
-            <li><strong>KeyError</strong> : Essayer d'accéder à une clé qui n'existe pas.</li>
-            <li><strong>Clés uniques</strong> : Un dictionnaire ne peut pas avoir deux fois la même clé. La deuxième écrasera la première.</li>
-            <li><strong>Types de clés</strong> : Les clés doivent être immutables (on utilise souvent des chaînes de caractères ou des entiers).</li>
-        </ul>
-
-        <h4>🎯 EXERCICES</h4>
-        <p><strong>Ex 1 :</strong> Créer un dictionnaire 'inventaire' avec 3 pommes, 2 bananes et 5 oranges. Augmenter le nombre de bananes de 1.</p>
-        <p><strong>Ex 2 :</strong> Écrire une fonction qui prend un dictionnaire et renvoie la somme de toutes les valeurs (on suppose que ce sont des nombres).</p>
-
-        <details>
-            <summary>Solutions</summary>
-            <pre>
-# Ex 1
-inv = {"pommes": 3, "bananes": 2, "oranges": 5}
-inv["bananes"] += 1
-
-# Ex 2
-def somme_dict(d):
-    s = 0
-    for v in d.values():
-        s += v
-    return s
-            </pre>
-        </details>
-    `
-            },
-
-            {
-                id: "nsi-7",
-                title: "Algorithmes de Tri",
-                description: "Tri par insertion et tri par sélection - Analyse et complexité",
-                content: `
-        <h4>📚 Introduction - L'importance de l'ordre</h4>
-        <p>Trier des données est l'une des tâches les plus fréquentes en informatique (trier des contacts, des prix, des scores). Nous allons étudier deux algorithmes "classiques".</p>
-
-        <h4>📊 1. Le Tri par Sélection</h4>
-        <p><strong>Principe :</strong> On cherche le plus petit élément de la liste, on l'échange avec le premier. Puis on cherche le plus petit du reste, on l'échange avec le deuxième, etc.</p>
+        <p>La <strong>recherche dichotomique</strong> (ou recherche par dichotomie) est cette méthode intelligente. 
+        Elle permet de chercher très rapidement dans une liste <strong>triée</strong>.</p>
         
-        <p><strong>Schéma de fonctionnement :</strong></p>
-        <pre>
-[5, 8, 2, 1]  (Min est 1) -> échange avec index 0
-[1 | 8, 2, 5] (Min est 2) -> échange avec index 1
-[1, 2 | 8, 5] (Min est 5) -> échange avec index 2
-[1, 2, 5, 8]  Trié !
-        </pre>
-
-        <pre>
-def tri_selection(L):
-    n = len(L)
-    for i in range(n - 1):
-        min_idx = i
-        for j in range(i + 1, n):
-            if L[j] < L[min_idx]:
-                min_idx = j
-        L[i], L[min_idx] = L[min_idx], L[i]
-        </pre>
-
-        <h4>🃏 2. Le Tri par Insertion</h4>
-        <p><strong>Principe :</strong> C'est la méthode naturelle quand on trie des cartes en main. On prend un élément et on le place "à sa place" dans la partie gauche déjà triée.</p>
+        <p><strong>Principe fondamental :</strong> À chaque étape, on divise par 2 la zone de recherche.</p>
         
-        <pre>
-def tri_insertion(L):
-    for i in range(1, len(L)):
-        valeur_a_inserer = L[i]
-        j = i
-        while j > 0 and L[j-1] > valeur_a_inserer:
-            L[j] = L[j-1]
-            j = j - 1
-        L[j] = valeur_a_inserer
-        </pre>
+        <p><strong>Condition ABSOLUE :</strong> La liste doit être <strong>TRIÉE</strong> (croissant ou décroissant).</p>
 
-        <h4>⏱️ 3. Complexité</h4>
-        <p>Pour les deux tris, si on double la taille de la liste (n), le temps de calcul est multiplié par 4. On dit que la complexité est <strong>quadratique : O(n²)</strong>.</p>
-
-        <h4>💡 Points clés</h4>
-        <ul>
-            <li>✅ Sélection : cherche le minimum.</li>
-            <li>✅ Insertion : décale les éléments vers la droite pour faire de la place.</li>
-            <li>✅ Les deux sont inefficaces sur de très grandes listes.</li>
-        </ul>
-    `
-            },
-
-            {
-                id: "nsi-8",
-                title: "Algorithmes Gloutons",
-                description: "Optimisation et choix locaux - Problème du rendu de monnaie",
-                content: `
-        <h4>📚 Introduction - Faire au mieux "tout de suite"</h4>
-        <p>Un algorithme glouton (greedy) résout un problème d'optimisation en faisant toujours le choix qui semble le meilleur <strong>immédiatement</strong>, sans jamais revenir en arrière.</p>
-
-        <h4>💰 1. Le problème du rendu de monnaie</h4>
-        <p>Objectif : Rendre une somme avec le <strong>minimum</strong> de pièces possibles.</p>
-        <p><strong>Stratégie gloutonne :</strong> Prendre la plus grande pièce possible tant qu'elle ne dépasse pas la somme restante.</p>
-
-        <pre>
-Somme à rendre : 8€
-Pièces dispo : [5, 2, 1]
-
-1. 8 >= 5 ? Oui. Je prends 5€. Reste 3€.
-2. 3 >= 5 ? Non.
-3. 3 >= 2 ? Oui. Je prends 2€. Reste 1€.
-4. 1 >= 2 ? Non.
-5. 1 >= 1 ? Oui. Je prends 1€. Reste 0€.
-Total : 3 pièces (5, 2, 1).
-        </pre>
-
-        <h4>⚠️ 2. La limite du glouton</h4>
-        <p>L'algorithme glouton est rapide mais <strong>ne donne pas toujours la solution optimale</strong> !</p>
-        <p>Exemple : Rendre 6€ avec des pièces de [4, 3, 1].</p>
-        <ul>
-            <li>Le glouton prendra : 4 + 1 + 1 (3 pièces).</li>
-            <li>La solution optimale est : 3 + 3 (2 pièces).</li>
-        </ul>
-
-        <h4>🎯 EXERCICE : Le sac à dos</h4>
-        <p>Vous avez un sac limité à 10kg. Objets : A(7kg, 10€), B(5kg, 8€), C(4kg, 7€). Quel est le choix glouton si on privilégie le prix le plus élevé ? Est-ce optimal ?</p>
-        <details>
-            <summary>Solution</summary>
-            <p>Choix glouton : Objet A (7kg, 10€). On ne peut plus rien ajouter. Total = 10€. 
-            Solution optimale : Objets B+C (9kg, 15€). Le glouton a échoué ici.</p>
-        </details>
-    `
-            },
-
-            {
-                id: "nsi-9",
-                title: "Architecture Matérielle et OS",
-                description: "Composants d'un ordinateur et rôle du système d'exploitation",
-                content: `
-        <h4>💻 1. Le modèle de Von Neumann</h4>
-        <p>Presque tous les ordinateurs actuels reposent sur cette architecture divisée en 4 parties :</p>
-        <pre>
-1. Le processeur (CPU) : Le cerveau (UAL + Unité de contrôle).
-2. La mémoire vive (RAM) : Stocke données et programmes en cours.
-3. Les bus : "Autoroutes" de données reliant les composants.
-4. Les entrées/sorties (E/S) : Clavier, écran, disque dur...
-        </pre>
-
-        <h4>🧠 2. Le CPU (Central Processing Unit)</h4>
-        <p>Il exécute des instructions en boucle selon le cycle : <strong>Charger -> Décoder -> Exécuter</strong>.</p>
-        <p>Il possède des <strong>registres</strong> (mémoires ultra-rapides mais minuscules).</p>
-
-        <h4>📀 3. Le Système d'Exploitation (OS)</h4>
-        <p>C'est le logiciel principal (Windows, Linux, macOS). Ses rôles :</p>
-        <ul>
-            <li><strong>Gestion des processus</strong> : Partager le temps CPU entre les logiciels ouverts.</li>
-            <li><strong>Gestion de la mémoire</strong> : Isoler les programmes pour qu'ils ne plantent pas les uns les autres.</li>
-            <li><strong>Gestion des fichiers</strong> : Organiser les données sur le disque.</li>
-            <li><strong>Interface</strong> : Faire le lien entre matériel et utilisateur.</li>
-        </ul>
-
-        <h4>📁 4. Les systèmes de fichiers</h4>
-        <p>Sous Linux, tout est fichier. Les droits d'accès sont gérés par : <strong>Lecture (r), Écriture (w), Exécution (x)</strong> pour trois types d'utilisateurs : Propriétaire, Groupe, Autres.</p>
-    `
-            },
-
-            {
-                id: "nsi-10",
-                title: "Réseaux : Modèle OSI et TCP/IP",
-                description: "Comment les données voyagent sur Internet - Protocoles et Adressage",
-                content: `
-        <h4>🌐 1. Qu'est-ce qu'un réseau ?</h4>
-        <p>Un ensemble de machines connectées pour échanger des informations. Le plus grand réseau est <strong>Internet</strong>.</p>
-
-        <h4>📍 2. L'adresse IP</h4>
-        <p>Chaque machine a une adresse unique. IPv4 est codée sur 4 octets (ex: 192.168.1.1). 
-        Comme on arrive à court d'adresses, on passe à l'IPv6 (128 bits).</p>
-
-        <h4>📜 3. Les couches du modèle TCP/IP</h4>
-        <pre>
-┌──────────────┬──────────────────────────────────────────┐
-│ Couche       │ Rôle / Protocole                         │
-├──────────────┼──────────────────────────────────────────┤
-│ Application  │ HTTP (Web), FTP (Fichier), DNS           │
-│ Transport    │ TCP (Fiable) ou UDP (Rapide)             │
-│ Internet     │ IP (Acheminement des paquets)            │
-│ Accès Réseau │ Ethernet, Wi-Fi                          │
-└──────────────┴──────────────────────────────────────────┘
-        </pre>
-
-        <h4>🔍 4. Le DNS (Domain Name System)</h4>
-        <p>C'est l'annuaire d'Internet. Il transforme <code>google.com</code> en adresse IP <code>142.250.179.78</code> car les ordinateurs ne comprennent que les chiffres.</p>
-    `
-            },
-
-            {
-                id: "nsi-11",
-                title: "Langages HTML et CSS",
-                description: "Créer et styliser des pages Web - Structure et design",
-                content: `
-        <h4>🏗️ 1. HTML (HyperText Markup Language)</h4>
-        <p>Il définit la <strong>structure</strong> et le <strong>contenu</strong> de la page à l'aide de balises.</p>
-        <pre>
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt; &lt;title&gt;Ma Page&lt;/title&gt; &lt;/head&gt;
-&lt;body&gt;
-    &lt;h1&gt;Bienvenue&lt;/h1&gt;
-    &lt;p&gt;Ceci est un paragraphe.&lt;/p&gt;
-    &lt;a href="https://google.com"&gt;Lien vers Google&lt;/a&gt;
-    &lt;img src="image.jpg" alt="Description"&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-        </pre>
-
-        <h4>🎨 2. CSS (Cascading Style Sheets)</h4>
-        <p>Il définit l'<strong>apparence</strong> (couleurs, polices, disposition).</p>
-        <pre>
-/* Sélecteur { Propriété: Valeur; } */
-h1 {
-    color: blue;
-    text-align: center;
-}
-p {
-    font-family: Arial;
-    font-size: 16px;
-}
-        </pre>
-
-        <h4>💡 Points clés</h4>
-        <ul>
-            <li>✅ Balise <code>&lt;head&gt;</code> : Infos invisibles (titre, encodage).</li>
-            <li>✅ Balise <code>&lt;body&gt;</code> : Contenu visible.</li>
-            <li>✅ CSS peut être dans un fichier séparé <code>.css</code>.</li>
-        </ul>
-    `
-            },
-
-            {
-                id: "nsi-12",
-                title: "Interactions Web : JavaScript",
-                description: "Rendre les pages dynamiques - DOM et Événements",
-                content: `
-        <h4>⚡ 1. Pourquoi JavaScript ?</h4>
-        <p>HTML structure, CSS décore, JavaScript <strong>anime</strong>. C'est le langage qui permet de réagir au clic, de vérifier un formulaire ou de faire bouger des éléments.</p>
-
-        <h4>🖱️ 2. Événements et DOM</h4>
-        <p>Le <strong>DOM</strong> (Document Object Model) est la représentation de la page HTML que JavaScript peut modifier.</p>
+        <h4>🎯 1. Le principe de la dichotomie</h4>
         
+        <p><strong>A. L'idée de base</strong></p>
+        <p>On cherche une valeur dans une liste triée en procédant par éliminations successives :</p>
         <pre>
-// Sélectionner un élément
-let monTitre = document.querySelector("h1");
-
-// Modifier le contenu
-monTitre.innerHTML = "Nouveau Titre";
-
-// Réagir à un clic
-let monBouton = document.querySelector("#btn");
-monBouton.addEventListener("click", function() {
-    alert("Vous avez cliqué !");
-});
+Étape 1 : Regarder l'élément du milieu
+Étape 2 : Comparer avec la valeur cherchée
+Étape 3 : 
+  - Si c'est égal → TROUVÉ !
+  - Si c'est plus petit → chercher dans la moitié droite
+  - Si c'est plus grand → chercher dans la moitié gauche
+Étape 4 : Répéter jusqu'à trouver ou épuiser les possibilités
         </pre>
-
-        <h4>🚫 3. Piège : Client vs Serveur</h4>
-        <p>Le JavaScript de base s'exécute chez l'utilisateur (Navigateur = Client). Il ne peut pas accéder directement à la base de données du site.</p>
-    `
-            },
-
-            {
-                id: "nsi-13",
-                title: "Traitement de données en tables (CSV)",
-                description: "Manipulation de fichiers de données avec Python",
-                content: `
-        <h4>📊 1. Le format CSV</h4>
-        <p>Comma Separated Values. Un format simple pour stocker des tableaux sous forme de texte.</p>
-        <pre>
-nom,prenom,note
-Dupont,Jean,15
-Durand,Marie,18
-        </pre>
-
-        <h4>🐍 2. Lire du CSV en Python</h4>
-        <p>On utilise souvent le module <code>csv</code> pour transformer chaque ligne en <strong>dictionnaire</strong>.</p>
-        <pre>
-import csv
-with open('eleves.csv', mode='r', encoding='utf-8') as f:
-    lecteur = csv.DictReader(f)
-    for ligne in lecteur:
-        print(ligne['nom'], ligne['note'])
-        </pre>
-
-        <h4>🛠️ 3. Opérations classiques</h4>
-        <ul>
-            <li><strong>Filtrage</strong> : Garder uniquement les lignes qui respectent une condition.</li>
-            <li><strong>Tri</strong> : Classer les données selon une colonne.</li>
-        </ul>
-    `
-            },
-
-            {
-                id: "nsi-14",
-                title: "Algorithme k-NN (K plus proches voisins)",
-                description: "IA et Apprentissage automatique (Machine Learning)",
-                content: `
-        <h4>🤖 1. Principe du k-NN</h4>
-        <p>C'est un algorithme de <strong>classification</strong>. Pour prédire la catégorie d'un nouvel élément, on regarde les <strong>k</strong> voisins les plus proches de lui dans les données connues.</p>
         
-        <p><strong>Exemple :</strong> On veut savoir si un fruit est une orange ou un pamplemousse selon son poids et son diamètre.</p>
-        <ol>
-            <li>Calculer la distance entre le nouveau fruit et tous les autres.</li>
-            <li>Trouver les <strong>k</strong> plus proches.</li>
-            <li>La catégorie majoritaire parmi ces voisins devient la prédiction.</li>
-        </ol>
-
-        <h4>📏 2. La distance</h4>
-        <p>On utilise souvent la distance euclidienne entre deux points A(x1, y1) et B(x2, y2) :</p>
-        <pre>d = √((x2-x1)² + (y2-y1)²)</pre>
-
-        <h4>💡 Point clé</h4>
-        <p>Le choix de <strong>k</strong> est crucial. Si k est trop petit, l'algorithme est sensible aux erreurs. S'il est trop grand, il perd en précision locale.</p>
-    `
-            },
-
-            {
-                id: "nsi-15",
-                title: "Algorithmes de Recherche",
-                description: "Recherche séquentielle vs recherche dichotomique",
-                content: `
-        <h4>🔍 1. Recherche Linéaire (ou séquentielle)</h4>
-        <p>On regarde les éléments un par un, du début à la fin.</p>
-        <p><strong>Complexité : O(n)</strong>. Si la liste fait 1 million d'éléments, on peut faire 1 million de tests.</p>
-
-        <h4>🎯 2. Recherche Dichotomique (Binary Search)</h4>
-        <p>⚠️ <strong>CONDITION : La liste doit être TRIÉE.</strong></p>
-        <p><strong>Principe :</strong> On regarde l'élément au milieu. S'il est trop grand, on cherche dans la moitié gauche. S'il est trop petit, dans la moitié droite. On divise ainsi par deux le nombre d'éléments à chaque étape.</p>
-
+        <p><strong>B. Exemple détaillé avec des nombres</strong></p>
+        <p>Cherchons 47 dans : [3, 12, 18, 25, 31, 47, 52, 63, 71, 89]</p>
         <pre>
-def recherche_dicho(L, cible):
+┌─────────────────────────────────────────────────────┐
+│ ÉTAPE 1 : Zone de recherche complète               │
+├─────────────────────────────────────────────────────┤
+│ [3, 12, 18, 25, 31, 47, 52, 63, 71, 89]            │
+│   ↑              ↑               ↑                  │
+│  début        milieu            fin                 │
+│                                                      │
+│ Indices : 0 à 9                                     │
+│ Milieu = (0 + 9) // 2 = 4                          │
+│ Valeur au milieu : liste[4] = 31                   │
+│                                                      │
+│ 31 < 47 → on cherche à DROITE                      │
+└─────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│ ÉTAPE 2 : Zone réduite (moitié droite)             │
+├─────────────────────────────────────────────────────┤
+│                   [47, 52, 63, 71, 89]              │
+│                    ↑    ↑         ↑                 │
+│                 début milieu     fin                │
+│                                                      │
+│ Indices : 5 à 9                                     │
+│ Milieu = (5 + 9) // 2 = 7                          │
+│ Valeur au milieu : liste[7] = 63                   │
+│                                                      │
+│ 63 > 47 → on cherche à GAUCHE                      │
+└─────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│ ÉTAPE 3 : Zone encore réduite                       │
+├─────────────────────────────────────────────────────┤
+│                   [47, 52]                          │
+│                    ↑   ↑                            │
+│                 début/milieu/fin                    │
+│                                                      │
+│ Indices : 5 à 6                                     │
+│ Milieu = (5 + 6) // 2 = 5                          │
+│ Valeur au milieu : liste[5] = 47                   │
+│                                                      │
+│ 47 == 47 → TROUVÉ ! À l'indice 5                   │
+└─────────────────────────────────────────────────────┘
+
+Résultat : 47 est à l'indice 5
+Nombre de comparaisons : 3 (au lieu de 6 avec une recherche séquentielle)
+        </pre>
+
+        <h4>💻 2. Implémentation en Python</h4>
+        
+        <p><strong>Version itérative (avec une boucle while)</strong></p>
+        <pre>
+def dichotomie(liste, valeur):
+    """
+    Recherche dichotomique itérative
+    Renvoie l'indice si trouvé, -1 sinon
+    """
     debut = 0
-    fin = len(L) - 1
+    fin = len(liste) - 1
+    
     while debut <= fin:
+        # Calcul de l'indice du milieu
         milieu = (debut + fin) // 2
-        if L[milieu] == cible:
+        
+        # Comparaison avec la valeur cherchée
+        if liste[milieu] == valeur:
+            return milieu  # TROUVÉ !
+        elif liste[milieu] < valeur:
+            debut = milieu + 1  # Chercher à droite
+        else:
+            fin = milieu - 1    # Chercher à gauche
+    
+    return -1  # Non trouvé
+
+# Exemple d'utilisation
+nombres = [3, 12, 18, 25, 31, 47, 52, 63, 71, 89]
+resultat = dichotomie(nombres, 47)
+print(f"Indice de 47 : {resultat}")  # Affiche: Indice de 47 : 5
+        </pre>
+        
+        <p><strong>Points techniques essentiels :</strong></p>
+        <ul>
+            <li><code>debut <= fin</code> : Tant qu'il reste au moins un élément à vérifier</li>
+            <li><code>milieu = (debut + fin) // 2</code> : Division entière pour obtenir un indice</li>
+            <li>Retour de <code>-1</code> si non trouvé (convention Python)</li>
+        </ul>
+        <h4>🔍 3. Trace d'exécution détaillée</h4>
+        
+        <p><strong>Cherchons 63 dans [5, 12, 18, 23, 31, 47, 52, 63, 71, 89, 95]</strong></p>
+        <pre>
+Liste : [5, 12, 18, 23, 31, 47, 52, 63, 71, 89, 95]
+Indices: 0   1   2   3   4   5   6   7   8   9  10
+
+┌──────┬───────┬─────┬────────┬────────────┬──────────────┐
+│ Tour │ Début │ Fin │ Milieu │ liste[mil] │ Action       │
+├──────┼───────┼─────┼────────┼────────────┼──────────────┤
+│  1   │   0   │ 10  │   5    │     47     │ 47 < 63      │
+│      │       │     │        │            │ → droite     │
+├──────┼───────┼─────┼────────┼────────────┼──────────────┤
+│  2   │   6   │ 10  │   8    │     71     │ 71 > 63      │
+│      │       │     │        │            │ → gauche     │
+├──────┼───────┼─────┼────────┼────────────┼──────────────┤
+│  3   │   6   │  7  │   6    │     52     │ 52 < 63      │
+│      │       │     │        │            │ → droite     │
+├──────┼───────┼─────┼────────┼────────────┼──────────────┤
+│  4   │   7   │  7  │   7    │     63     │ TROUVÉ !     │
+└──────┴───────┴─────┴────────┴────────────┴──────────────┘
+
+Résultat : indice 7
+Nombre de comparaisons : 4
+        </pre>
+        
+        <p><strong>Cherchons 100 (qui n'existe pas)</strong></p>
+        <pre>
+┌──────┬───────┬─────┬────────┬────────────┬──────────────┐
+│ Tour │ Début │ Fin │ Milieu │ liste[mil] │ Action       │
+├──────┼───────┼─────┼────────┼────────────┼──────────────┤
+│  1   │   0   │ 10  │   5    │     47     │ 47 < 100     │
+│      │       │     │        │            │ → droite     │
+├──────┼───────┼─────┼────────┼────────────┼──────────────┤
+│  2   │   6   │ 10  │   8    │     71     │ 71 < 100     │
+│      │       │     │        │            │ → droite     │
+├──────┼───────┼─────┼────────┼────────────┼──────────────┤
+│  3   │   9   │ 10  │   9    │     89     │ 89 < 100     │
+│      │       │     │        │            │ → droite     │
+├──────┼───────┼─────┼────────┼────────────┼──────────────┤
+│  4   │  10   │ 10  │  10    │     95     │ 95 < 100     │
+│      │       │     │        │            │ → droite     │
+├──────┼───────┼─────┼────────┼────────────┼──────────────┤
+│  5   │  11   │ 10  │   -    │     -      │ début > fin  │
+│      │       │     │        │            │ → NON TROUVÉ │
+└──────┴───────┴─────┴────────┴────────────┴──────────────┘
+
+Résultat : -1 (non trouvé)
+        </pre>
+
+        <h4>⚡ 4. Complexité et performance</h4>
+        
+        <p><strong>A. Comparaison avec la recherche séquentielle</strong></p>
+        <pre>
+RECHERCHE SÉQUENTIELLE (parcours un par un) :
+- Meilleur cas : 1 comparaison (élément en 1ère position)
+- Pire cas : n comparaisons (élément en dernière position ou absent)
+- Cas moyen : n/2 comparaisons
+- Complexité : O(n) - linéaire
+
+RECHERCHE DICHOTOMIQUE :
+- Meilleur cas : 1 comparaison (élément au milieu)
+- Pire cas : log₂(n) comparaisons
+- Complexité : O(log n) - logarithmique
+
+┌──────────────┬─────────────┬──────────────┬──────────┐
+│ Taille liste │ Séquentiel  │ Dichotomie   │ Gain     │
+├──────────────┼─────────────┼──────────────┼──────────┤
+│      10      │     10      │      4       │   2.5×   │
+│     100      │    100      │      7       │   14×    │
+│   1 000      │   1 000     │     10       │  100×    │
+│  10 000      │  10 000     │     14       │  714×    │
+│ 100 000      │ 100 000     │     17       │ 5882×    │
+│ 1 000 000    │ 1 000 000   │     20       │ 50000×   │
+└──────────────┴─────────────┴──────────────┴──────────┘
+
+⚡ Plus la liste est grande, plus le gain est spectaculaire !
+        </pre>
+        
+        <p><strong>B. Pourquoi log₂(n) ?</strong></p>
+        <pre>
+À chaque étape, on divise la zone par 2 :
+
+n éléments → n/2 → n/4 → n/8 → ... → 1
+
+Nombre d'étapes pour arriver à 1 = log₂(n)
+
+Exemples :
+- 8 éléments : log₂(8) = 3 étapes (8 → 4 → 2 → 1)
+- 16 éléments : log₂(16) = 4 étapes
+- 1024 éléments : log₂(1024) = 10 étapes
+
+Formule : Si on a 2^k éléments, il faut k étapes maximum
+        </pre>
+
+        <h4>⚠️ 5. Pièges et erreurs courantes</h4>
+        
+        <p><strong>Piège 1 : Liste non triée</strong></p>
+        <pre>
+❌ ERREUR CLASSIQUE :
+liste = [47, 12, 89, 3, 52, 18]
+resultat = dichotomie(liste, 47)
+# Peut donner un résultat FAUX car la liste n'est pas triée !
+
+✅ SOLUTION :
+liste = [47, 12, 89, 3, 52, 18]
+liste.sort()  # Trier d'abord !
+resultat = dichotomie(liste, 47)
+        </pre>
+        
+        <p><strong>Piège 2 : Calcul du milieu avec overflow</strong></p>
+        <pre>
+❌ RISQUE (dans certains langages, pas Python) :
+milieu = (debut + fin) / 2
+# Si debut + fin dépasse la capacité, overflow !
+
+✅ MIEUX :
+milieu = debut + (fin - debut) // 2
+# Évite le dépassement de capacité
+
+✅ AUSSI CORRECT (Python) :
+milieu = (debut + fin) // 2
+# Python gère les grands nombres automatiquement
+        </pre>
+        
+        <p><strong>Piège 3 : Condition de boucle incorrecte</strong></p>
+        <pre>
+❌ ERREUR :
+while debut < fin:  # Manque le cas debut == fin
+    ...
+
+✅ CORRECT :
+while debut <= fin:  # Inclut le cas d'un seul élément
+    ...
+        </pre>
+        
+        <p><strong>Piège 4 : Mise à jour incorrecte des bornes</strong></p>
+        <pre>
+❌ ERREUR :
+if liste[milieu] < valeur:
+    debut = milieu      # On ne progresse pas !
+else:
+    fin = milieu        # On ne progresse pas !
+
+✅ CORRECT :
+if liste[milieu] < valeur:
+    debut = milieu + 1  # On exclut milieu
+else:
+    fin = milieu - 1    # On exclut milieu
+        </pre>
+        
+        <p><strong>Piège 5 : Division par / au lieu de //</strong></p>
+        <pre>
+❌ ERREUR :
+milieu = (debut + fin) / 2  # Donne un float !
+# liste[2.5] → erreur !
+
+✅ CORRECT :
+milieu = (debut + fin) // 2  # Division entière
+        </pre>
+        
+        <h4>🔬 7. Preuve de correction</h4>
+        
+        <p><strong>Invariant de boucle :</strong> Un invariant est une propriété qui reste vraie à chaque itération.</p>
+        <pre>
+Pour la dichotomie, l'invariant est :
+"Si la valeur est dans la liste, elle est dans [debut, fin]"
+
+Initialisation :
+- Au début : debut = 0, fin = len(liste) - 1
+- Si la valeur existe, elle est forcément dans [0, len(liste)-1]
+- Invariant VRAI
+
+Conservation :
+- Si liste[milieu] < valeur : valeur ne peut être que dans [milieu+1, fin]
+- Si liste[milieu] > valeur : valeur ne peut être que dans [debut, milieu-1]
+- Dans les deux cas, on réduit [debut, fin] mais l'invariant RESTE VRAI
+
+Terminaison :
+- À chaque tour, la taille de [debut, fin] diminue d'au moins 1
+- Quand debut > fin : zone vide → valeur non trouvée
+- Ou on a trouvé liste[milieu] == valeur
+        </pre>
+
+        <h4>📊 Tableau récapitulatif</h4>
+        <pre>
+DICHOTOMIE - POINTS ESSENTIELS
+┌─────────────────────┬─────────────────────────────────┐
+│ Pré-requis          │ Liste TRIÉE                     │
+│ Complexité          │ O(log n)                        │
+│ Meilleur cas        │ 1 comparaison                   │
+│ Pire cas            │ log₂(n) comparaisons            │
+│ Espace mémoire      │ O(1) itératif, O(log n) récurs. │
+│ Idée clé            │ Diviser par 2 à chaque étape    │
+└─────────────────────┴─────────────────────────────────┘
+
+CONDITION DE BOUCLE : while debut <= fin
+
+CALCUL DU MILIEU : milieu = (debut + fin) // 2
+
+MISE À JOUR DES BORNES :
+- Si liste[milieu] < valeur : debut = milieu + 1
+- Si liste[milieu] > valeur : fin = milieu - 1
+- Si liste[milieu] == valeur : TROUVÉ !
+
+RETOUR : Indice si trouvé, -1 sinon
+        </pre>
+
+        <h4>💡 Points clés à retenir</h4>
+        <ul>
+            <li>✅ La dichotomie ne fonctionne QUE sur des listes TRIÉES</li>
+            <li>✅ Complexité O(log n) : BEAUCOUP plus rapide que O(n)</li>
+            <li>✅ Principe : diviser par 2 à chaque étape</li>
+            <li>✅ Condition de boucle : <code>while debut <= fin</code></li>
+            <li>✅ Division entière avec <code>//</code> pour calculer le milieu</li>
+            <li>✅ Exclure milieu : <code>milieu + 1</code> ou <code>milieu - 1</code></li>
+            <li>✅ Retourner -1 si non trouvé (convention)</li>
+            <li>✅ Sur 1 million d'éléments : max 20 comparaisons !</li>
+        </ul>
+
+        <h4>🎯 EXERCICES À FAIRE SOI-MÊME</h4>
+        
+        <p><strong>Exercice 1 : Trace manuelle</strong></p>
+        <p>Chercher 42 dans [5, 12, 18, 23, 31, 42, 47, 52, 63, 71, 89]</p>
+        <p>a) Combien d'étapes sont nécessaires ?</p>
+        <p>b) Quelles sont les valeurs successives de milieu ?</p>
+        <p>c) À quel indice se trouve 42 ?</p>
+        
+        <p><strong>Exercice 2 : Élément absent</strong></p>
+        <p>Chercher 50 dans [10, 20, 30, 40, 60, 70, 80, 90]</p>
+        <p>a) Tracer les étapes de la recherche</p>
+        <p>b) Pourquoi renvoie-t-on -1 ?</p>
+        <p>c) Quelle serait la condition finale (valeurs de debut et fin) ?</p>
+        
+        <p><strong>Exercice 3 : Compléter le code</strong></p>
+        <pre>
+def dichotomie(liste, valeur):
+    debut = ___
+    fin = ___
+    
+    while ___ <= ___:
+        milieu = (debut + fin) ___ 2
+        
+        if liste[milieu] ___ valeur:
+            return ___
+        elif liste[milieu] < valeur:
+            debut = ___
+        else:
+            fin = ___
+    
+    return ___
+        </pre>
+        
+        <p><strong>Exercice 4 : Debugging</strong></p>
+        <p>Trouvez les 3 erreurs dans ce code :</p>
+        <pre>
+def dichotomie_bugee(liste, valeur):
+    debut = 1  # Erreur 1 ?
+    fin = len(liste)  # Erreur 2 ?
+    
+    while debut < fin:  # Erreur 3 ?
+        milieu = (debut + fin) // 2
+        
+        if liste[milieu] == valeur:
             return milieu
-        elif L[milieu] < cible:
+        elif liste[milieu] < valeur:
             debut = milieu + 1
         else:
             fin = milieu - 1
+    
     return -1
         </pre>
+        
+        <p><strong>Exercice 5 : Nombre de comparaisons</strong></p>
+        <p>Calculer le nombre MAXIMUM de comparaisons pour :</p>
+        <p>a) Une liste de 32 éléments</p>
+        <p>b) Une liste de 64 éléments</p>
+        <p>c) Une liste de 128 éléments</p>
+        <p>d) Quelle est la formule générale ?</p>
+        
+        <p><strong>Exercice 6 : Implémentation</strong></p>
+        <p>Écrire une fonction <code>compter_occurrences(liste, valeur)</code> qui compte 
+        le nombre d'occurrences d'une valeur dans une liste triée.</p>
+        <p>Indice : Utiliser première_occurrence et derniere_occurrence</p>
+        
+        <p><strong>Exercice 7 : Insertion optimale</strong></p>
+        <p>Écrire une fonction <code>position_insertion(liste, valeur)</code> qui renvoie 
+        la position où insérer une valeur pour garder la liste triée.</p>
+        <p>Exemple : position_insertion([1, 3, 5, 7], 4) renvoie 2</p>
+        
+        <p><strong>Exercice 8 : Recherche de seuil</strong></p>
+        <p>Une entreprise teste un produit avec des tarifs croissants. 
+        Écrire une fonction qui trouve le tarif maximum qu'on peut se permettre avec un budget donné.</p>
+        <pre>
+tarifs = [5, 10, 15, 20, 25, 30, 35, 40]
+budget = 22
+# Doit renvoyer : 20 (le plus grand tarif ≤ budget)
+        </pre>
+        
+        <p><strong>Exercice 9 : Comparaison pratique</strong></p>
+        <p>Soit une liste de 10 000 nombres triés.</p>
+        <p>a) Combien de comparaisons maximum avec recherche séquentielle ?</p>
+        <p>b) Combien de comparaisons maximum avec dichotomie ?</p>
+        <p>c) Calculer le facteur d'amélioration</p>
+        
+        <p><strong>Exercice 10 : Mini-projet</strong></p>
+        <p>Créer un programme de jeu "Devine le nombre" :</p>
+        <ul>
+            <li>L'ordinateur choisit un nombre entre 1 et 100</li>
+            <li>Le joueur propose des nombres</li>
+            <li>L'ordinateur répond "plus grand" ou "plus petit"</li>
+            <li>Implémenter une IA qui joue PARFAITEMENT avec la dichotomie</li>
+        </ul>
 
-        <h4>⏱️ 3. Efficacité</h4>
-        <p>La dichotomie est incroyablement rapide. Pour 1 million d'éléments, il ne faut que <strong>20 étapes</strong> au maximum ! On dit que la complexité est <strong>logarithmique : O(log n)</strong>.</p>
+        <h4>🔍 Solutions des exercices</h4>
+        <details>
+            <summary>Cliquer pour voir les solutions</summary>
+            <pre>
+<strong>Exercice 1 : Trace manuelle</strong>
+Liste : [5, 12, 18, 23, 31, 42, 47, 52, 63, 71, 89]
+Indices: 0   1   2   3   4   5   6   7   8   9  10
+
+Étape 1 : debut=0, fin=10, milieu=5, liste[5]=42 → TROUVÉ !
+
+a) 1 seule étape nécessaire (chance !)
+b) milieu = 5
+c) L'indice est 5
+
+<strong>Exercice 2 : Élément absent</strong>
+Liste : [10, 20, 30, 40, 60, 70, 80, 90]
+Cherche : 50
+
+Étape 1 : debut=0, fin=7, milieu=3, liste[3]=40 → 40 < 50, chercher droite
+Étape 2 : debut=4, fin=7, milieu=5, liste[5]=70 → 70 > 50, chercher gauche
+Étape 3 : debut=4, fin=4, milieu=4, liste[4]=60 → 60 > 50, chercher gauche
+Étape 4 : debut=4, fin=3 → debut > fin → NON TROUVÉ
+
+a) 4 étapes
+b) On renvoie -1 car 50 n'existe pas dans la liste
+c) Condition finale : debut=4, fin=3 (debut > fin)
+
+<strong>Exercice 3 : Compléter le code</strong>
+def dichotomie(liste, valeur):
+    debut = 0
+    fin = len(liste) - 1
+    
+    while debut <= fin:
+        milieu = (debut + fin) // 2
+        
+        if liste[milieu] == valeur:
+            return milieu
+        elif liste[milieu] < valeur:
+            debut = milieu + 1
+        else:
+            fin = milieu - 1
+    
+    return -1
+
+<strong>Exercice 4 : Debugging</strong>
+Erreur 1 : debut = 1 → doit être debut = 0
+Erreur 2 : fin = len(liste) → doit être fin = len(liste) - 1
+Erreur 3 : while debut < fin → doit être while debut <= fin
+
+<strong>Exercice 5 : Nombre de comparaisons</strong>
+a) 32 = 2⁵ → log₂(32) = 5 comparaisons max (+1 = 6)
+b) 64 = 2⁶ → log₂(64) = 6 comparaisons max (+1 = 7)
+c) 128 = 2⁷ → log₂(128) = 7 comparaisons max (+1 = 8)
+d) Formule : ⌈log₂(n)⌉ + 1 ou environ log₂(n)
+
+<strong>Exercice 6 : Implémentation</strong>
+def compter_occurrences(liste, valeur):
+    premier = premiere_occurrence(liste, valeur)
+    if premier == -1:
+        return 0
+    dernier = derniere_occurrence(liste, valeur)
+    return dernier - premier + 1
+
+# Test
+liste = [1, 2, 3, 3, 3, 3, 4, 5]
+print(compter_occurrences(liste, 3))  # 4
+
+<strong>Exercice 7 : Insertion optimale</strong>
+def position_insertion(liste, valeur):
+    debut = 0
+    fin = len(liste) - 1
+    
+    while debut <= fin:
+        milieu = (debut + fin) // 2
+        if liste[milieu] < valeur:
+            debut = milieu + 1
+        else:
+            fin = milieu - 1
+    
+    return debut
+
+# Test
+print(position_insertion([1, 3, 5, 7], 4))  # 2
+print(position_insertion([1, 3, 5, 7], 0))  # 0
+print(position_insertion([1, 3, 5, 7], 10)) # 4
+
+<strong>Exercice 8 : Recherche de seuil</strong>
+def tarif_max(tarifs, budget):
+    debut = 0
+    fin = len(tarifs) - 1
+    resultat = -1
+    
+    while debut <= fin:
+        milieu = (debut + fin) // 2
+        if tarifs[milieu] <= budget:
+            resultat = tarifs[milieu]
+            debut = milieu + 1
+        else:
+            fin = milieu - 1
+    
+    return resultat
+
+# Test
+tarifs = [5, 10, 15, 20, 25, 30, 35, 40]
+print(tarif_max(tarifs, 22))  # 20
+
+<strong>Exercice 9 : Comparaison pratique</strong>
+a) Recherche séquentielle : 10 000 comparaisons max
+b) Dichotomie : log₂(10000) ≈ 13.3 → 14 comparaisons max
+c) Facteur : 10000/14 ≈ 714 fois plus rapide !
+
+<strong>Exercice 10 : Mini-projet</strong>
+import random
+
+def devine_nombre_joueur():
+    """Le joueur devine"""
+    secret = random.randint(1, 100)
+    tentatives = 0
+    
+    print("J'ai choisi un nombre entre 1 et 100")
+    
+    while True:
+        tentatives += 1
+        proposition = int(input("Votre proposition : "))
+        
+        if proposition == secret:
+            print(f"Bravo ! Trouvé en {tentatives} coups")
+            break
+        elif proposition < secret:
+            print("Plus grand !")
+        else:
+            print("Plus petit !")
+
+def devine_nombre_ia():
+    """L'IA devine avec dichotomie"""
+    print("Pensez à un nombre entre 1 et 100")
+    input("Appuyez sur Entrée quand c'est fait...")
+    
+    debut = 1
+    fin = 100
+    tentatives = 0
+    
+    while debut <= fin:
+        tentatives += 1
+        milieu = (debut + fin) // 2
+        
+        print(f"Est-ce {milieu} ?")
+        reponse = input("(=)égal, (+)plus grand, (-)plus petit : ")
+        
+        if reponse == '=':
+            print(f"Trouvé en {tentatives} coups !")
+            break
+        elif reponse == '+':
+            debut = milieu + 1
+        else:
+            fin = milieu - 1
+
+# Lancer le jeu
+# devine_nombre_joueur()  # Le joueur devine
+# devine_nombre_ia()      # L'IA devine
+            </pre>
+        </details>
+
+        <h4>📝 Checklist pour l'évaluation</h4>
+        <ul>
+            <li>✓ Je sais expliquer le principe de la dichotomie</li>
+            <li>✓ Je connais la condition ESSENTIELLE : liste triée</li>
+            <li>✓ Je sais calculer l'indice du milieu avec //</li>
+            <li>✓ Je maîtrise la condition de boucle : while debut <= fin</li>
+            <li>✓ Je sais mettre à jour debut et fin correctement (milieu ± 1)</li>
+            <li>✓ Je comprends pourquoi la complexité est O(log n)</li>
+            <li>✓ Je sais faire une trace d'exécution complète</li>
+            <li>✓ Je peux implémenter la version itérative</li>
+            <li>✓ Je connais les pièges courants (liste non triée, / au lieu de //, etc.)</li>
+            <li>✓ Je sais adapter l'algorithme (première/dernière occurrence, liste décroissante)</li>
+            <li>✓ Je comprends la différence de performance avec la recherche séquentielle</li>
+        </ul>
+
+        <h4>🚀 Pour aller plus loin</h4>
+        <ul>
+            <li><strong>Recherche ternaire :</strong> Diviser en 3 au lieu de 2 (moins efficace !)</li>
+            <li><strong>Interpolation search :</strong> Estimer la position selon la valeur</li>
+            <li><strong>Exponential search :</strong> Pour les listes infinies/très grandes</li>
+            <li><strong>Jump search :</strong> Sauter par blocs puis recherche linéaire</li>
+            <li><strong>Binary search dans d'autres contextes :</strong> Optimisation, recherche de minimum/maximum</li>
+        </ul>
     `
             }
         ]
@@ -2380,331 +2585,114 @@ const questionsData = {
     ],
     "nsi-6": [
         {
-            question: "Comment créer une liste vide en Python ?",
-            answers: ["liste = ()", "liste = []", "liste = {}", "liste = <>"],
+            question: "Quelle est la condition ABSOLUE pour utiliser la dichotomie ?",
+            answers: [
+                "La liste doit être de taille paire",
+                "La liste doit être triée",
+                "La liste ne doit pas contenir de doublons",
+                "La liste doit contenir au moins 10 éléments"
+            ],
             correct: 1,
-            explanation: "[] crée une liste vide en Python"
+            explanation: "La dichotomie ne fonctionne QUE sur des listes triées (croissant ou décroissant). Sans tri, l'algorithme peut donner des résultats incorrects."
         },
         {
-            question: "Que vaut fruits[1] si fruits = ['pomme', 'banane', 'kiwi'] ?",
-            answers: ["pomme", "banane", "kiwi", "Erreur"],
-            correct: 1,
-            explanation: "L'index 1 correspond au deuxième élément"
-        },
-        {
-            question: "Comment ajouter 'orange' à la fin d'une liste ?",
-            answers: ["liste.add('orange')", "liste.append('orange')", "liste.insert('orange')", "liste.push('orange')"],
-            correct: 1,
-            explanation: "append() ajoute un élément à la fin de la liste"
-        },
-        {
-            question: "Que fait len([1, 2, 3, 4, 5]) ?",
-            answers: ["Retourne 4", "Retourne 5", "Retourne la somme", "Erreur"],
-            correct: 1,
-            explanation: "len() retourne le nombre d'éléments : 5"
-        },
-        {
-            question: "Que vaut liste[-1] ?",
-            answers: ["Premier élément", "Dernier élément", "Erreur", "Avant-dernier"],
-            correct: 1,
-            explanation: "L'index -1 accède au dernier élément"
-        }
-    ],
-
-    "nsi-7": [
-        {
-            question: "Comment créer un dictionnaire vide ?",
-            answers: ["dict = []", "dict = {}", "dict = ()", "dict = set()"],
-            correct: 1,
-            explanation: "{} crée un dictionnaire vide"
-        },
-        {
-            question: "Comment accéder à la valeur associée à 'nom' ?",
-            answers: ["dict.nom", "dict[nom]", "dict['nom']", "dict(nom)"],
+            question: "Quelle est la complexité temporelle de la recherche dichotomique ?",
+            answers: [
+                "O(n)",
+                "O(n²)",
+                "O(log n)",
+                "O(1)"
+            ],
             correct: 2,
-            explanation: "On utilise dict['clé'] avec des guillemets"
+            explanation: "La dichotomie a une complexité O(log n) car on divise par 2 la zone de recherche à chaque étape. Sur 1000 éléments, il faut environ 10 comparaisons maximum."
         },
         {
-            question: "Que retourne dict.keys() ?",
-            answers: ["Les valeurs", "Les clés", "Les paires", "La taille"],
+            question: "Dans [5, 12, 23, 31, 47, 52, 71], quel est l'indice du milieu au premier tour ?",
+            answers: [
+                "2",
+                "3",
+                "4",
+                "31"
+            ],
             correct: 1,
-            explanation: "keys() retourne la liste des clés du dictionnaire"
+            explanation: "milieu = (0 + 6) // 2 = 3. L'indice 3 contient la valeur 31. Attention : 31 est la VALEUR, pas l'indice !"
         },
         {
-            question: "Comment ajouter une clé 'age' avec la valeur 25 ?",
-            answers: ["dict.add('age', 25)", "dict['age'] = 25", "dict.insert('age', 25)", "dict.append('age', 25)"],
-            correct: 1,
-            explanation: "dict['clé'] = valeur pour ajouter ou modifier"
-        },
-        {
-            question: "Que vérifie 'nom' in dict ?",
-            answers: ["Si 'nom' est une valeur", "Si 'nom' est une clé", "Si dict existe", "La taille"],
-            correct: 1,
-            explanation: "in vérifie la présence d'une clé dans le dictionnaire"
-        }
-    ],
-
-    "nsi-8": [
-        {
-            question: "Que signifie CSV ?",
-            answers: ["Computer System Values", "Comma-Separated Values", "Code Source Variables", "Create Save View"],
-            correct: 1,
-            explanation: "CSV = Comma-Separated Values (valeurs séparées par des virgules)"
-        },
-        {
-            question: "Quel module Python permet de lire les CSV ?",
-            answers: ["file", "csv", "read", "data"],
-            correct: 1,
-            explanation: "Le module csv de Python permet de manipuler les fichiers CSV"
-        },
-        {
-            question: "Dans un CSV, comment sont séparées les colonnes généralement ?",
-            answers: ["Espaces", "Virgules", "Points", "Slashes"],
-            correct: 1,
-            explanation: "Les colonnes sont séparées par des virgules (ou parfois des points-virgules)"
-        },
-        {
-            question: "Une table en Python est souvent représentée comme :",
-            answers: ["Une chaîne", "Une liste de dictionnaires", "Un tuple", "Un set"],
-            correct: 1,
-            explanation: "Une table est généralement une liste de dictionnaires, chaque dictionnaire étant une ligne"
-        },
-        {
-            question: "Pour filtrer une table, on utilise souvent :",
-            answers: ["Une boucle if", "Une compréhension de liste", "La méthode filter()", "Toutes ces réponses"],
-            correct: 3,
-            explanation: "Toutes ces méthodes peuvent filtrer une table"
-        }
-    ],
-
-    "nsi-9": [
-        {
-            question: "Quelle méthode trie une liste en Python ?",
-            answers: ["list.order()", "list.sort()", "list.arrange()", "list.rank()"],
-            correct: 1,
-            explanation: "La méthode sort() trie une liste sur place"
-        },
-        {
-            question: "Comment trier par ordre décroissant ?",
-            answers: ["sort(reverse=True)", "sort(desc=True)", "sort(order='desc')", "sort(-1)"],
-            correct: 0,
-            explanation: "Le paramètre reverse=True inverse l'ordre de tri"
-        },
-        {
-            question: "Que fait sorted(liste) ?",
-            answers: ["Trie sur place", "Retourne une nouvelle liste triée", "Vérifie si triée", "Erreur"],
-            correct: 1,
-            explanation: "sorted() retourne une nouvelle liste triée sans modifier l'original"
-        },
-        {
-            question: "Pour trier par âge, on utilise :",
-            answers: ["sort()", "sort(age)", "sort(key=lambda x: x['age'])", "sort('age')"],
+            question: "Que renvoie généralement une fonction de dichotomie quand l'élément n'est pas trouvé ?",
+            answers: [
+                "None",
+                "0",
+                "-1",
+                "False"
+            ],
             correct: 2,
-            explanation: "Le paramètre key permet de spécifier le critère de tri avec une fonction lambda"
+            explanation: "Par convention en Python, on renvoie -1 pour indiquer que l'élément n'a pas été trouvé (car -1 n'est pas un indice valide)."
         },
         {
-            question: "Quelle est la complexité du tri par fusion ?",
-            answers: ["O(n)", "O(n²)", "O(n log n)", "O(log n)"],
+            question: "Quelle opération doit-on utiliser pour calculer l'indice du milieu ?",
+            answers: [
+                "(debut + fin) / 2",
+                "(debut + fin) // 2",
+                "(debut + fin) % 2",
+                "(debut + fin) ** 2"
+            ],
+            correct: 1,
+            explanation: "On utilise // (division entière) pour obtenir un indice entier. L'opérateur / donnerait un float, ce qui causerait une erreur lors de l'accès à la liste."
+        },
+        {
+            question: "Sur une liste de 1024 éléments, combien de comparaisons maximum sont nécessaires ?",
+            answers: [
+                "10",
+                "11",
+                "512",
+                "1024"
+            ],
+            correct: 1,
+            explanation: "1024 = 2¹⁰, donc log₂(1024) = 10. Il faut environ 10-11 comparaisons maximum (contre 1024 pour une recherche séquentielle !)."
+        },
+        {
+            question: "Quelle est la bonne condition pour la boucle while de la dichotomie ?",
+            answers: [
+                "while debut < fin:",
+                "while debut <= fin:",
+                "while debut != fin:",
+                "while milieu < fin:"
+            ],
+            correct: 1,
+            explanation: "Il faut while debut <= fin: pour gérer le cas où il reste un seul élément (debut == fin). Avec <, on manquerait ce cas."
+        },
+        {
+            question: "Si liste[milieu] < valeur cherchée, que fait-on ?",
+            answers: [
+                "fin = milieu - 1",
+                "debut = milieu - 1",
+                "debut = milieu + 1",
+                "fin = milieu + 1"
+            ],
             correct: 2,
-            explanation: "Le tri fusion a une complexité O(n log n)"
-        }
-    ],
-
-    "nsi-10": [
-        {
-            question: "Que signifie CPU ?",
-            answers: ["Computer Processing Unit", "Central Processing Unit", "Code Program Unit", "Central Power Unit"],
-            correct: 1,
-            explanation: "CPU = Central Processing Unit (processeur central)"
+            explanation: "Si liste[milieu] < valeur, alors la valeur se trouve forcément dans la partie DROITE. On met donc debut = milieu + 1 (on exclut milieu)."
         },
         {
-            question: "La RAM est-elle volatile ?",
-            answers: ["Oui", "Non", "Parfois", "Dépend du type"],
-            correct: 0,
-            explanation: "La RAM est volatile : elle perd ses données à l'extinction"
-        },
-        {
-            question: "Combien d'octets dans 1 Ko ?",
-            answers: ["1000", "1024", "100", "512"],
-            correct: 1,
-            explanation: "1 Ko = 1024 octets (2¹⁰)"
-        },
-        {
-            question: "Quel composant effectue les calculs ?",
-            answers: ["RAM", "Disque dur", "UAL", "Bus"],
+            question: "Quel est l'avantage principal de la dichotomie sur la recherche séquentielle ?",
+            answers: [
+                "Elle utilise moins de mémoire",
+                "Elle fonctionne sur des listes non triées",
+                "Elle est beaucoup plus rapide sur les grandes listes",
+                "Elle trouve toujours l'élément"
+            ],
             correct: 2,
-            explanation: "L'UAL (Unité Arithmétique et Logique) effectue les calculs"
+            explanation: "La dichotomie est exponentiellement plus rapide : sur 1 million d'éléments, 20 comparaisons max au lieu de 1 million ! Le gain augmente avec la taille."
         },
         {
-            question: "Le modèle de von Neumann sépare-t-il données et instructions ?",
-            answers: ["Oui", "Non", "Parfois", "Jamais"],
-            correct: 1,
-            explanation: "Dans le modèle de von Neumann, données et instructions partagent la même mémoire"
-        }
-    ],
-
-    "nsi-11": [
-        {
-            question: "Que signifie IP ?",
-            answers: ["Internet Provider", "Internet Protocol", "Internal Program", "Input Process"],
-            correct: 1,
-            explanation: "IP = Internet Protocol"
-        },
-        {
-            question: "Format d'une adresse IPv4 ?",
-            answers: ["xxx.xxx", "xxx.xxx.xxx", "xxx.xxx.xxx.xxx", "xxxxxxxx"],
+            question: "Combien de fois divise-t-on la zone de recherche en cherchant dans une liste de 16 éléments (pire cas) ?",
+            answers: [
+                "3 fois",
+                "4 fois",
+                "5 fois",
+                "8 fois"
+            ],
             correct: 2,
-            explanation: "Une adresse IPv4 a 4 nombres séparés par des points"
-        },
-        {
-            question: "Que fait le protocole DNS ?",
-            answers: ["Crypte les données", "Traduit nom de domaine en IP", "Compresse les fichiers", "Vérifie les erreurs"],
-            correct: 1,
-            explanation: "DNS traduit les noms de domaine (www.site.fr) en adresses IP"
-        },
-        {
-            question: "HTTP fonctionne sur quel port par défaut ?",
-            answers: ["21", "22", "80", "443"],
-            correct: 2,
-            explanation: "HTTP utilise le port 80 par défaut (HTTPS utilise 443)"
-        },
-        {
-            question: "TCP garantit-il la fiabilité de transmission ?",
-            answers: ["Oui", "Non", "Parfois", "Seulement en local"],
-            correct: 0,
-            explanation: "TCP garantit la livraison fiable des données avec accusés de réception"
-        }
-    ],
-
-    "nsi-12": [
-        {
-            question: "Que signifie HTML ?",
-            answers: ["High Text Markup Language", "HyperText Markup Language", "Home Tool Markup Language", "HyperText Modern Language"],
-            correct: 1,
-            explanation: "HTML = HyperText Markup Language"
-        },
-        {
-            question: "Quelle balise pour un lien ?",
-            answers: ["<link>", "<a>", "<href>", "<url>"],
-            correct: 1,
-            explanation: "La balise <a> avec l'attribut href crée un lien"
-        },
-        {
-            question: "Comment lier un fichier CSS ?",
-            answers: ["<css src='...'>", "<link rel='stylesheet' href='...'>", "<style src='...'>", "<import css='...'>"],
-            correct: 1,
-            explanation: "<link rel='stylesheet' href='fichier.css'> dans le <head>"
-        },
-        {
-            question: "Le sélecteur .classe en CSS sélectionne :",
-            answers: ["Un ID", "Une balise", "Une classe", "Tout"],
-            correct: 2,
-            explanation: "Le point (.) sélectionne les éléments ayant cette classe"
-        },
-        {
-            question: "Pour changer la couleur du texte en CSS ?",
-            answers: ["text-color:", "color:", "font-color:", "text:"],
-            correct: 1,
-            explanation: "La propriété color modifie la couleur du texte"
-        }
-    ],
-
-    "nsi-13": [
-        {
-            question: "Quelle est la complexité du tri par sélection ?",
-            answers: ["O(n)", "O(n²)", "O(n log n)", "O(log n)"],
-            correct: 1,
-            explanation: "Le tri par sélection a une complexité O(n²)"
-        },
-        {
-            question: "Le tri par insertion est efficace sur :",
-            answers: ["Données aléatoires", "Données presque triées", "Grandes listes", "Aucun cas"],
-            correct: 1,
-            explanation: "Le tri par insertion est très efficace sur des données déjà presque triées"
-        },
-        {
-            question: "Le tri fusion utilise quelle technique ?",
-            answers: ["Force brute", "Diviser pour régner", "Glouton", "Programmation dynamique"],
-            correct: 1,
-            explanation: "Le tri fusion divise le problème en sous-problèmes plus petits"
-        },
-        {
-            question: "Quel tri est le plus rapide en moyenne ?",
-            answers: ["Sélection", "Insertion", "Fusion", "Tous égaux"],
-            correct: 2,
-            explanation: "Le tri fusion (O(n log n)) est plus rapide que sélection et insertion (O(n²))"
-        },
-        {
-            question: "Le tri par bulles compare :",
-            answers: ["Éléments adjacents", "Premier et dernier", "Aléatoirement", "Par paires fixes"],
-            correct: 0,
-            explanation: "Le tri à bulles compare et échange des éléments adjacents"
-        }
-    ],
-
-    "nsi-14": [
-        {
-            question: "La recherche dichotomique nécessite :",
-            answers: ["Une liste triée", "Une liste non triée", "Un arbre", "Un graphe"],
-            correct: 0,
-            explanation: "La recherche dichotomique ne fonctionne que sur une liste triée"
-        },
-        {
-            question: "Complexité de la recherche séquentielle ?",
-            answers: ["O(1)", "O(log n)", "O(n)", "O(n²)"],
-            correct: 2,
-            explanation: "Dans le pire cas, on parcourt tous les n éléments"
-        },
-        {
-            question: "Complexité de la recherche dichotomique ?",
-            answers: ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
-            correct: 1,
-            explanation: "On divise par 2 à chaque étape : O(log n)"
-        },
-        {
-            question: "Dans une liste de 1024 éléments, combien d'étapes max en dichotomique ?",
-            answers: ["10", "11", "512", "1024"],
-            correct: 1,
-            explanation: "log₂(1024) = 10, donc 11 comparaisons au maximum"
-        },
-        {
-            question: "La recherche séquentielle s'arrête :",
-            answers: ["Toujours à la fin", "Quand élément trouvé", "Au milieu", "Jamais"],
-            correct: 1,
-            explanation: "On peut s'arrêter dès qu'on trouve l'élément cherché"
-        }
-    ],
-
-    "nsi-15": [
-        {
-            question: "Une fonction récursive doit toujours avoir :",
-            answers: ["Un return", "Un cas de base", "Une boucle", "Un print"],
-            correct: 1,
-            explanation: "Le cas de base arrête la récursion pour éviter la boucle infinie"
-        },
-        {
-            question: "Que vaut factorielle(0) ?",
-            answers: ["0", "1", "Erreur", "Infini"],
-            correct: 1,
-            explanation: "Par définition, 0! = 1"
-        },
-        {
-            question: "Le risque principal de la récursivité ?",
-            answers: ["Lenteur", "Stack overflow", "Erreur de syntaxe", "Perte de données"],
-            correct: 1,
-            explanation: "Trop d'appels récursifs peuvent saturer la pile d'appels"
-        },
-        {
-            question: "fibonacci(5) vaut :",
-            answers: ["3", "5", "8", "13"],
-            correct: 1,
-            explanation: "fibonacci(5) = fibonacci(4) + fibonacci(3) = 3 + 2 = 5"
-        },
-        {
-            question: "La récursivité est toujours plus rapide que les boucles ?",
-            answers: ["Oui", "Non", "Parfois", "Toujours égal"],
-            correct: 1,
-            explanation: "La récursivité est souvent moins efficace à cause de la pile d'appels"
+            explanation: "16 → 8 → 4 → 2 → 1 = 4 divisions. Formule : log₂(16) = 4. Au pire cas, on fait 5 comparaisons (la dernière sur un seul élément)."
         }
     ],
     "phy-1": [

@@ -27,8 +27,8 @@ body {
 
 .container {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+    margin: 20px auto;
+    padding: 20px 20px;
 }
 
 /* Header */
@@ -450,6 +450,9 @@ footer {
 
 /* Responsive design */
 @media (max-width: 768px) {
+    .container{
+        margin: 20px 20px;
+    }
     header h1 {
         font-size: 1.5rem;
     }
@@ -509,10 +512,9 @@ footer {
 }
 
 @media (max-width: 480px) {
-    .container {
-        padding: 0 15px;
+    .container{
+        margin: 20px 20px;
     }
-
     main {
         padding: 15px;
         border-radius: 10px;
